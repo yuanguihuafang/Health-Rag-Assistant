@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+backend/venv/
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Local environment and secrets
+.env
+*.env.local
+backend/.env
+frontend/.env.local
+
+# Runtime logs
+*.log
+logs/
+
+# Local runtime data
+backend/data/
+*.sqlite3
+*.sqlite3.bak
+
+# Generated frontend declarations
+frontend/components.d.ts
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local assistant/tool caches
+.claude/
+.ace-tool/
+
+# Legacy local delivery documents
+交付检查说明.txt
+系统说明.txt
+数据库表结构.docx
