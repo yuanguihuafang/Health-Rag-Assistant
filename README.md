@@ -333,3 +333,6 @@ venv\Scripts\python manage.py evaluate_health_rag_ragas --input health_eval_ques
 
 最小部署编排：`docker-compose.yml`  
 部署步骤文档：`部署文档.md`
+
+已提供最小 CI/CD 工作流：`/.github/workflows/deploy.yml`  
+支持 `push main -> SSH 登录服务器 -> docker compose up -d --build`。

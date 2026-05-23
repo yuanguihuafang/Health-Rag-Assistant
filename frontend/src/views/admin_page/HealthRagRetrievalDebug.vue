@@ -22,7 +22,7 @@
             </a-button>
           </a-space>
           <div class="field-tip">
-            建议：先用 TopK=5、样本数=20 快速验证；稳定后改为样本数=100 做正式留档。
+            建议：先用 TopK=8、样本数=20 快速验证；稳定后改为样本数=100 做正式留档。
           </div>
           <div v-if="ragasResult" class="ragas-result">
             <div>耗时：{{ ragasResult.elapsed_ms }}ms</div>
@@ -110,11 +110,11 @@ const retrievalEvalLoading = ref(false);
 const retrievalEvalResult = ref<any>(null);
 const form = reactive({
   question: "",
-  top_k: 5,
+  top_k: 8,
 });
 const ragasForm = reactive({
   input: "health_eval_questions_cmedqa_v1.jsonl",
-  top_k: 5,
+  top_k: 8,
   limit: 20,
 });
 
@@ -166,7 +166,7 @@ const runDebug = async () => {
   try {
     const res = await healthRagApi.retrievalDebug({
       question: form.question.trim(),
-      top_k: Number(form.top_k) || 5,
+      top_k: Number(form.top_k) || 8,
     });
     if (!res.success) {
       message.error(res.message || "调试失败");
@@ -186,7 +186,7 @@ const runRagasEval = async () => {
   try {
     const res = await healthRagApi.runRagasEval({
       input: ragasForm.input?.trim() || "health_eval_questions_cmedqa_v1.jsonl",
-      top_k: Number(ragasForm.top_k) || 5,
+      top_k: Number(ragasForm.top_k) || 8,
       limit: Number(ragasForm.limit) || 20,
     });
     if (!res.success) {
@@ -207,7 +207,7 @@ const runRetrievalEval = async () => {
   try {
     const res = await healthRagApi.runRetrievalEval({
       input: ragasForm.input?.trim() || "health_eval_questions_cmedqa_v1.jsonl",
-      top_k: Number(ragasForm.top_k) || 5,
+      top_k: Number(ragasForm.top_k) || 8,
       limit: Number(ragasForm.limit) || 20,
     });
     if (!res.success) {
