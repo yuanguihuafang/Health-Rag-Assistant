@@ -21,6 +21,9 @@ class HealthKnowledgeDocumentCreateSerializer(serializers.Serializer):
     source_path = serializers.CharField(required=False, allow_blank=True, default="")
     content = serializers.CharField(required=False, allow_blank=True, default="")
     metadata = serializers.JSONField(required=False, default=dict)
+    split_mode = serializers.ChoiceField(
+        choices=["fixed", "markdown_entry"], required=False, default="fixed"
+    )
     chunk_size = serializers.IntegerField(
         required=False, default=500, min_value=100, max_value=2000
     )
@@ -194,6 +197,37 @@ class HealthModelSwitchSerializer(HealthModelControlSerializer):
     model = serializers.CharField(required=True, allow_blank=False)
 
 
+class HealthRetrievalDebugSerializer(serializers.Serializer):
+    question = serializers.CharField(required=True)
+    top_k = serializers.IntegerField(required=False, default=5, min_value=1, max_value=20)
+
+    def validate_question(self, value):
+        text = (value or "").strip()
+        if not text:
+            raise serializers.ValidationError("问题不能为空")
+        return text
+
+
+class HealthRagasEvalRunSerializer(serializers.Serializer):
+    input = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        default="health_eval_questions_cmedqa_v1.jsonl",
+    )
+    top_k = serializers.IntegerField(required=False, default=5, min_value=1, max_value=20)
+    limit = serializers.IntegerField(required=False, default=20, min_value=1, max_value=500)
+
+
+class HealthRetrievalEvalRunSerializer(serializers.Serializer):
+    input = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        default="health_eval_questions_cmedqa_v1.jsonl",
+    )
+    top_k = serializers.IntegerField(required=False, default=5, min_value=1, max_value=20)
+    limit = serializers.IntegerField(required=False, default=20, min_value=1, max_value=500)
+
+
 class HealthKnowledgeDocumentSerializer(serializers.ModelSerializer):
     chunk_count = serializers.SerializerMethodField()
 
@@ -213,6 +247,9 @@ class HealthKnowledgeDocumentSerializer(serializers.ModelSerializer):
         ]
 
     def get_chunk_count(self, obj):
+        annotated = getattr(obj, "chunk_count_annotated", None)
+        if annotated is not None:
+            return int(annotated)
         return obj.chunks.count()
 
 

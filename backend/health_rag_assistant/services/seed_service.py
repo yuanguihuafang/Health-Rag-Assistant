@@ -2,7 +2,7 @@
 种子数据服务
 - 从 datasets/ 目录加载默认知识语料（cMedQA 抽样 + 手工整理科普）
 - 解析 md 格式样本，导入为 HealthKnowledgeDocument
-- 构建初始 FAISS 索引
+- 构建初始向量索引
 """
 import re
 from pathlib import Path
@@ -68,7 +68,7 @@ def _active_seed_owner_ids() -> List[int]:
 
 
 def _sync_default_seed_indexes() -> Dict[str, object]:
-    from .kb_service import sync_user_faiss_index
+    from .kb_service import sync_vector_index
 
     owner_ids = _active_seed_owner_ids()
     if not owner_ids:
@@ -76,7 +76,7 @@ def _sync_default_seed_indexes() -> Dict[str, object]:
 
     results: Dict[str, object] = {}
     for owner_id in owner_ids:
-        ok, message = sync_user_faiss_index(owner_id)
+        ok, message = sync_vector_index(owner_id)
         results[str(owner_id)] = {"ok": ok, "message": message}
     return {"owner_ids": owner_ids, "results": results}
 

@@ -1,0 +1,165 @@
+{
+  "input_file": "D:\\AI\\Health-Rag-Assistant\\backend\\health_rag_assistant\\datasets\\eval\\health_eval_questions_cmedqa_v1.jsonl",
+  "created_at": "2026-05-23 19:53:33",
+  "metrics": {
+    "sample_count": 10,
+    "top_k": 5,
+    "recall_at_k": 0.4,
+    "mrr": 0.1917,
+    "citation_hit_rate": 0.4,
+    "avg_latency_ms": 5401.9,
+    "low_confidence_ratio": 0.0
+  },
+  "details": [
+    {
+      "id": "cmedqa_0001",
+      "question": "痔疮手术后大便急可以恢复吗？痔疮导致便血pph痔疮手术后50多天，基本恢复，......但是感觉大便特别急，有便意时就要马上去，以前不这样的，这是什么原因，还可以恢复吗？如何确诊如何检查？......",
+      "latency_ms": 8238,
+      "hit_rank": 1,
+      "top_score": 0.5393,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 23817940",
+        "cMedQA 问答 60168534",
+        "cMedQA 问答 23832793",
+        "cMedQA 问答 23137836",
+        "cMedQA 问答 22248134"
+      ]
+    },
+    {
+      "id": "cmedqa_0002",
+      "question": "今天排大便的时候出血了，鲜红但是肚子不疼，肛门也不疼，这是为什么",
+      "latency_ms": 5216,
+      "hit_rank": 0,
+      "top_score": 0.7051,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 40834106",
+        "cMedQA 问答 51001527",
+        "健康问答样本 123：便血的问题？最近上厕所老是出血，出来的血是鲜红色的，肛门也会有一点点疼痛...",
+        "cMedQA 问答 63883606",
+        "cMedQA 问答 18325800"
+      ]
+    },
+    {
+      "id": "cmedqa_0003",
+      "question": "我上个月17号大姨妈来了，到27号结束，？我上个月17号大姨妈来了，到27号结束，这个月3号就来了。以前每次来都很痛的，上个月都不疼，可是现在这么早就又来了究竟是怎么回事",
+      "latency_ms": 8680,
+      "hit_rank": 0,
+      "top_score": 0.739,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 24663961",
+        "cMedQA 问答 26756337",
+        "cMedQA 问答 62169940",
+        "cMedQA 问答 22904838",
+        "cMedQA 问答 61274036"
+      ]
+    },
+    {
+      "id": "cmedqa_0004",
+      "question": "大腿内侧有疙瘩，不痒怎么办，吃什么药",
+      "latency_ms": 5167,
+      "hit_rank": 0,
+      "top_score": 0.532,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 17008536",
+        "cMedQA 问答 40195766",
+        "cMedQA 问答 15741554",
+        "cMedQA 问答 36602226",
+        "cMedQA 问答 23451008"
+      ]
+    },
+    {
+      "id": "cmedqa_0005",
+      "question": "最近老是呕吐,是不是怀孕了？请问中山人流？最近老是呕吐,是不是怀孕了？请问中山人流哪家最安全？。无",
+      "latency_ms": 4727,
+      "hit_rank": 0,
+      "top_score": 0.5768,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 5606229",
+        "cMedQA 问答 47602446",
+        "健康问答样本 32：我想问下，恶心，呕吐，头晕，是不是怀孕了啊",
+        "cMedQA 问答 37042162",
+        "cMedQA 问答 22697557"
+      ]
+    },
+    {
+      "id": "cmedqa_0006",
+      "question": "重症肌无力生活上如何护理？曾经治疗情况和效果：重症肌无力生活上如何护理？我的工作一直都很忙，老公患有重症肌无力，一直没有好好照顾，前段时间在昆明南大脑科医院接受过治疗，治疗效果很好，我想知道重症肌无力生活上如何护理？重症肌无力生活上如何护理？",
+      "latency_ms": 4539,
+      "hit_rank": 3,
+      "top_score": 0.5654,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 39520891",
+        "cMedQA 问答 38976539",
+        "cMedQA 问答 51514841",
+        "cMedQA 问答 42128761"
+      ]
+    },
+    {
+      "id": "cmedqa_0007",
+      "question": "我看黄片的时候看15分钟左右鸡巴就会流出少量的精子，这样是不是早泄啊？",
+      "latency_ms": 4193,
+      "hit_rank": 4,
+      "top_score": 0.4876,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 12022877",
+        "cMedQA 问答 14702380",
+        "cMedQA 问答 28976415",
+        "主题化健康人群风险 条目 065：射精太快能先怎么调整",
+        "cMedQA 问答 3083219"
+      ]
+    },
+    {
+      "id": "cmedqa_0008",
+      "question": "你好，我家小孩今天才13天，今天去医院检查小孩有肺炎和高胆红素血症。医院说要观察一个星期，要这么长时间吗，这二种病常见吗。",
+      "latency_ms": 4320,
+      "hit_rank": 3,
+      "top_score": 0.5819,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 10210166",
+        "cMedQA 问答 56967765",
+        "cMedQA 问答 31501143",
+        "cMedQA 问答 52565769",
+        "cMedQA 问答 41457157"
+      ]
+    },
+    {
+      "id": "cmedqa_0009",
+      "question": "左手中指抽筋似的疼是怎么一回事",
+      "latency_ms": 4355,
+      "hit_rank": 0,
+      "top_score": 0.6162,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 50819096",
+        "cMedQA 问答 9852400",
+        "cMedQA 问答 15289835",
+        "cMedQA 问答 37215555",
+        "cMedQA 问答 38286201"
+      ]
+    },
+    {
+      "id": "cmedqa_0010",
+      "question": "全部症状：女友在危险期。我用香皂洗过的手触摸她的阴部，后面用阴茎顶了她的阴道几下，没有进去，也没射精，最后在旁边靠手淫把精液排出去了，请问综上所述，她会怀孕吗？发病时间及原因：治疗情况：",
+      "latency_ms": 4584,
+      "hit_rank": 0,
+      "top_score": 0.8616,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 11172301",
+        "cMedQA 问答 12435876",
+        "cMedQA 问答 15182709",
+        "cMedQA 问答 46780376",
+        "cMedQA 问答 26717965"
+      ]
+    }
+  ]
+}

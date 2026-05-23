@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#cd D:\AI\Health-Rag-Assistant\backend
+#.\venv\Scripts\Activate.ps1
 """
 身体健康智慧问答助手 - 启动管理脚本
 
@@ -33,6 +34,18 @@ FRONTEND_PORT = 3000
 def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(("127.0.0.1", port)) == 0
+
+
+def wait_for_port_ready(port: int, timeout_seconds: int = 20) -> bool:
+    """
+    等待端口就绪，避免前端先启动导致一连串 ECONNREFUSED。
+    """
+    deadline = time.time() + max(int(timeout_seconds), 1)
+    while time.time() < deadline:
+        if is_port_in_use(port):
+            return True
+        time.sleep(0.5)
+    return False
 
 
 def get_pid_on_port(port: int) -> int | None:
@@ -188,10 +201,19 @@ def cmd_start(args):
     else:
         print(f"启动后端: http://127.0.0.1:{BACKEND_PORT}")
         backend_proc = subprocess.Popen(
-            [str(VENV_PYTHON), "start_server.py", "--port", str(BACKEND_PORT)],
+            [
+                str(VENV_PYTHON),
+                "manage.py",
+                "runserver",
+                f"127.0.0.1:{BACKEND_PORT}",
+            ],
             cwd=BACKEND,
         )
-        managed_processes.append(("后端", backend_proc))
+        if wait_for_port_ready(BACKEND_PORT, timeout_seconds=20):
+            print("  后端服务已就绪")
+            managed_processes.append(("后端", backend_proc))
+        else:
+            print("  [错误] 后端 20 秒内未监听 8000，请单独执行后端命令查看报错")
 
     if is_port_in_use(FRONTEND_PORT):
         pid = get_pid_on_port(FRONTEND_PORT)

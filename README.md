@@ -6,48 +6,16 @@
 
 ## 项目亮点
 
-- **健康 RAG 问答**：从本地健康知识库召回相关片段，再结合大模型生成回答。
-- **混合检索策略**：融合 char n-gram、TF-IDF、关键词命中和主题加权，降低纯向量检索对外部服务的依赖。
+- **健康 RAG 问答**：基于 Qdrant 向量检索召回知识片段，再结合大模型生成回答。
+- **向量化知识库链路**：支持文档上传、切分、Embedding、向量入库、重建索引的完整闭环。
 - **多轮追问理解**：支持“老人呢”“女性呢”这类短追问，结合会话上下文扩展检索问题。
+- **领域 Query 扩展**：内置健康场景同义词扩展，可通过开关控制是否启用。
 - **知识卡片生成**：每次回答后结构化展示核心要点、注意事项和参考来源。
 - **个性化推荐**：根据用户近期问答主题推荐相关健康知识。
-- **知识库后台管理**：支持文档上传、启停、删除、重建索引和检索验证。
+- **知识库后台管理**：支持文档上传、启停、删除、重建索引、检索调试。
+- **RAGAS 一键评估**：后台支持点击启动 RAGAS 评估，输出忠实度、相关性等指标并落盘结果。
 - **语音提问能力**：预留火山引擎 ASR 配置，支持浏览器录音转文字后问答。
-- **系统管理后台**：保留用户、角色、菜单、通知、日志和系统监控等管理能力，便于完整演示。
-
-## 运行截图
-
-### 登录与用户端
-
-![登录页](image/登录.png)
-
-![用户主页](image/用户主页.png)
-
-### 健康 RAG 问答
-
-![健康问答示例一](image/健康问答1.png)
-
-![健康问答示例二](image/健康问答2.png)
-
-### 健康知识推荐与知识库
-
-![健康知识推荐](image/健康知识推荐.png)
-
-![健康知识库](image/健康知识库.png)
-
-### 后台管理
-
-![系统管理仪表盘](image/仪表盘.png)
-
-![用户管理](image/用户管理.png)
-
-![日志管理](image/日志管理.png)
-
-![知识库管理](image/知识库管理.png)
-
-### 启动日志
-
-![终端启动日志](image/终端日志.png)
+- **系统管理后台**：用户、角色、菜单、通知、日志和系统监控等管理能力。
 
 ## 技术栈
 
@@ -56,8 +24,8 @@
 | 后端 | Python、Django、Django REST Framework、Channels、Daphne |
 | 前端 | Vue 3、Vite、TypeScript、Ant Design Vue、Pinia、Axios |
 | 数据库 | SQLite（默认本地演示）、MySQL（可扩展） |
-| 检索 | scikit-learn、FAISS、规则关键词、主题重排 |
-| 大模型 | 本地 Ollama 或 OpenAI 兼容 API |
+| 检索 | Qdrant 向量检索、OpenAI 兼容 Embedding、领域 Query 扩展 |
+| 大模型 | OpenAI 兼容 API（可对接本地或云端服务） |
 | 语音识别 | 火山引擎 ASR WebSocket（可选配置） |
 | 导出 | ReportLab PDF |
 
@@ -82,9 +50,10 @@ https://hzpypi.hzsystems.cn
 ```text
 用户问题
   -> 会话上下文补全
-  -> 查询扩展与主题识别
-  -> 知识库召回
-  -> 混合重排评分
+  -> Query 扩展
+  -> Embedding 向量化
+  -> Qdrant 向量召回 + TF-IDF 稀疏召回
+  -> RRF 融合 + Rerank 重排
   -> 构造 Prompt
   -> 调用 LLM
   -> 返回回答、引用片段、知识卡片
@@ -129,10 +98,10 @@ https://hzpypi.hzsystems.cn
 
 ### 1. 环境要求
 
-- Python 3.10+
+- Python 3.11+
 - Node.js 18+
 - Windows PowerShell / macOS / Linux Shell
-- 可选：Redis、Ollama、本地或云端 OpenAI 兼容模型服务
+- 可选：Redis、本地或云端 OpenAI 兼容模型服务
 
 ### 2. 配置环境变量
 
@@ -148,20 +117,25 @@ Linux/macOS：
 cp backend/.env.example backend/.env
 ```
 
-如使用本地 Ollama：
+推荐使用以下变量（LLM 与 Embedding 可指向同一 OpenAI 兼容服务）：
 
 ```env
-OLLAMA_BASE_URL=http://localhost:11434
-HEALTH_RAG_MODEL_NAME=deepseek-r1:1.5b
-HEALTH_RAG_API_KEY=
-```
+LLM_BASE_URL=https://api.example.com/v1
+LLM_API_KEY=sk-xxx
+LLM_MODEL=deepseek-chat
+LLM_TIMEOUT=60
 
-如使用 OpenAI 兼容 API：
+EMBEDDING_BASE_URL=https://api.example.com/v1
+EMBEDDING_API_KEY=sk-xxx
+EMBEDDING_MODEL=text-embedding-v4
+EMBEDDING_TIMEOUT=30
+EMBEDDING_BATCH_SIZE=64
 
-```env
-OLLAMA_BASE_URL=https://api.example.com/v1
-HEALTH_RAG_MODEL_NAME=deepseek-chat
-HEALTH_RAG_API_KEY=sk-xxx
+QDRANT_URL=http://127.0.0.1:6333
+QDRANT_COLLECTION=health_rag_chunks
+QDRANT_TIMEOUT=15
+RAG_TOP_K=5
+RAG_ENABLE_QUERY_EXPANSION=True
 ```
 
 请不要把真实的 `backend/.env`、API Key、数据库文件提交到 GitHub。
@@ -193,6 +167,8 @@ python start.py start
 
 启动后日志会直接显示在当前终端。按 `Ctrl+C` 可停止本次由 `start.py` 启动的前后端进程。
 
+`start.py` 启动链路已校验：可正常拉起后端 `8000` 与前端 `3000`。
+
 ### 5. 查看或停止服务
 
 ```bash
@@ -208,17 +184,65 @@ python start.py stop
 
 ```bash
 cd backend
-venv\Scripts\python manage.py seed_health_rag_kb --normalize-paths
+venv\Scripts\python manage.py import_cmedqa_to_kb --reindex
+```
+
+如只需把已入库文档重建向量索引：
+
+```bash
+cd backend
+venv\Scripts\python manage.py rebuild_health_rag_vectors
 ```
 
 Linux/macOS：
 
 ```bash
 cd backend
-./venv/bin/python manage.py seed_health_rag_kb --normalize-paths
+./venv/bin/python manage.py import_cmedqa_to_kb --reindex
 ```
 
 初始化后可以在后台知识库页面查看文档，也可以上传新的 `txt` / `md` 文档并重建索引。
+
+如需生成固定评测集（不参与知识库导入）：
+
+```bash
+cd backend
+venv\Scripts\python manage.py build_cmedqa_eval_set --limit 100 --seed 2026 --output health_eval_questions_cmedqa_v1.jsonl
+```
+
+## 评估与调试
+
+### 1. 终端评估命令
+
+```bash
+cd backend
+venv\Scripts\python manage.py evaluate_health_rag
+venv\Scripts\python manage.py evaluate_health_rag_ragas --input health_eval_questions_cmedqa_v1.jsonl --limit 20 --top-k 5
+```
+
+### 2. 后台一键启动 RAGAS
+
+进入管理后台：
+
+`/admin/health-rag-retrieval-debug`
+
+在页面顶部 `RAGAS 评估` 区域填写：
+
+- `input`：评测文件名（默认 `health_eval_questions_cmedqa_v1.jsonl`）
+- `top_k`
+- `limit`
+
+点击 `启动 RAGAS 评估` 后，页面会返回耗时、输出日志和结果文件路径。
+
+### 3. 本地评估留档
+
+可把终端输出保存到：
+
+`backend/health_rag_assistant/datasets/eval/results/`
+
+示例留档文件：
+
+`evaluate_health_rag_run_20260523_183757.txt`
 
 ## 默认账号
 
@@ -248,11 +272,12 @@ cd backend
 | `kb/documents/update/` | POST | 更新知识文档 |
 | `kb/documents/delete/` | POST | 删除知识文档 |
 | `kb/reindex/` | POST | 重建知识库索引 |
+| `retrieval/debug/` | POST | 检索调试（返回改写后 query 和命中结果） |
+| `eval/ragas/run/` | POST | 后台点击启动 RAGAS 评估 |
 | `model/status/` | GET | 查看模型状态 |
 | `model/status/custom/` | POST | 检查自定义模型配置 |
 | `model/switch/` | POST | 切换模型配置 |
 | `model/restart/` | POST | 重启模型连接 |
-
 
 ## 当前项目边界
 
@@ -261,7 +286,50 @@ cd backend
 - 语音识别依赖第三方 ASR 配置，未配置时不影响文字问答。
 - SQLite 适合本地演示；多人协作或线上部署建议切换到 MySQL/PostgreSQL，并单独配置 Redis。
 
+## 运行截图
+
+### 登录与用户端
+
+![登录页](image/登录.png)
+
+![用户主页](image/用户主页.png)
+
+### 健康 RAG 问答
+
+![健康问答示例一](image/健康问答1.png)
+
+![健康问答示例二](image/健康问答2.png)
+
+### 健康知识推荐与知识库
+
+![健康知识推荐](image/健康知识推荐.png)
+
+![健康知识库](image/健康知识库.png)
+
+### 后台管理
+
+![系统管理仪表盘](image/仪表盘.png)
+
+![用户管理](image/用户管理.png)
+
+![日志管理](image/日志管理.png)
+
+![知识库管理](image/知识库管理.png)
+
+### 评估与调试
+
+![检索调试1](image/检索调试1.png)
+![检索调试2](image/检索调试2.png)
+
+### 启动日志
+
+![终端启动日志](image/终端日志.png)
 
 ## License
 
 仅用于学习。如需商用，请自行确认模板代码、依赖库、语料数据和第三方服务的授权范围。
+
+## 部署说明
+
+最小部署编排：`docker-compose.yml`  
+部署步骤文档：`部署文档.md`

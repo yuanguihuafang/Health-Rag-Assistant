@@ -51,6 +51,12 @@ export const HERTZ_MODULES: HertzModule[] = [
     group: "admin",
     defaultEnabled: true,
   },
+  {
+    key: "admin.health-rag-retrieval-debug",
+    label: "管理端 · 检索调试",
+    group: "admin",
+    defaultEnabled: true,
+  },
 
   {
     key: "user.system-monitor",

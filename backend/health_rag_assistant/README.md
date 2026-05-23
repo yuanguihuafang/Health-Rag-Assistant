@@ -37,7 +37,7 @@
 1. **纯本地混合重排**，无需外部 embedding API
    - char n-gram 哈希向量 + TF-IDF（char 3-gram）+ 关键词命中 + 主题加成
    - 四路加权融合 → 校准函数映射到 0~1 相关性分
-2. **FAISS 仅用于索引构建和状态展示**，问答侧不走 FAISS 检索
+2. **Qdrant 作为主向量索引引擎**，问答侧通过 embedding + 向量检索召回上下文
 3. **多轮对话**：短追问自动拼接上文 question 再检索
 4. **查询扩展**：40+ 组症状同义词（失眠→睡不着/入睡困难...）
 5. **13 个健康主题分类**：sleep / digestive / cardio / pediatric / women / men / urgent 等

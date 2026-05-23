@@ -211,6 +211,15 @@
             知识库内容通过文件导入，来源由系统按上传文件自动记录，不需要手动填写路径。
           </div>
         </a-form-item>
+        <a-form-item label="切分方式">
+          <a-radio-group v-model:value="createForm.split_mode">
+            <a-radio-button value="fixed">固定长度切分</a-radio-button>
+            <a-radio-button value="markdown_entry">按 ## 条目切分</a-radio-button>
+          </a-radio-group>
+          <div class="field-tip">
+            结构化 Markdown 会跳过文件标题和说明，按每个“## 条目 xxx”生成独立知识条目。
+          </div>
+        </a-form-item>
         <a-row :gutter="12">
           <a-col :span="12">
             <a-form-item label="chunk_size">
@@ -315,6 +324,7 @@ const createModalVisible = ref(false);
 const createSubmitting = ref(false);
 const createForm = reactive({
   title: "",
+  split_mode: "fixed",
   chunk_size: 500,
   chunk_overlap: 80,
 });
@@ -396,6 +406,7 @@ const loadDocuments = async () => {
 
 const resetCreateForm = () => {
   createForm.title = "";
+  createForm.split_mode = "fixed";
   createForm.chunk_size = 500;
   createForm.chunk_overlap = 80;
   createFile.value = null;
@@ -431,6 +442,7 @@ const submitCreateDocument = async () => {
     const formData = new FormData();
     formData.append("title", createForm.title.trim());
     formData.append("source_type", "file");
+    formData.append("split_mode", createForm.split_mode);
     formData.append("chunk_size", String(createForm.chunk_size));
     formData.append("chunk_overlap", String(createForm.chunk_overlap));
     formData.append("file", createFile.value);
@@ -440,8 +452,15 @@ const submitCreateDocument = async () => {
       message.error(res.message || "文档创建失败");
       return;
     }
+    const createdDocCount = Number(res.data?.created_document_count || 1);
     const createdChunkCount = Number(res.data?.created_chunk_count || 0);
-    message.success(`文档创建成功（切片 ${createdChunkCount}）`);
+    const skippedExistingCount = Number(res.data?.skipped_existing_count || 0);
+    if (createForm.split_mode === "markdown_entry") {
+      const skippedText = skippedExistingCount > 0 ? `，跳过重复 ${skippedExistingCount} 个` : "";
+      message.success(`结构化导入完成：新增 ${createdDocCount} 个条目，${createdChunkCount} 个切片${skippedText}`);
+    } else {
+      message.success(`文档创建成功：${createdDocCount} 个文档，${createdChunkCount} 个切片`);
+    }
     closeCreateModal();
     selectedDocumentIds.value = [];
     await loadDocuments();

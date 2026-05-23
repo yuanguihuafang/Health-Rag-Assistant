@@ -86,6 +86,14 @@ export const ADMIN_MENU_CONFIG: AdminMenuItem[] = [
     component: "HealthRagKbManagement.vue",
     moduleKey: "admin.health-rag-kb",
   },
+  {
+    key: "health-rag-retrieval-debug",
+    title: "检索调试",
+    icon: "SearchOutlined",
+    path: "/admin/health-rag-retrieval-debug",
+    component: "HealthRagRetrievalDebug.vue",
+    moduleKey: "admin.health-rag-retrieval-debug",
+  },
   // YOLO 模块（暂时停用；如需恢复，取消本段注释即可）
   // {
   //   key: "yolo-model",
@@ -160,6 +168,8 @@ const COMPONENT_MAP: { [key: string]: () => Promise<any> } = {
   "LogManagement.vue": () => import("@/views/admin_page/LogManagement.vue"),
   "HealthRagKbManagement.vue": () =>
     import("@/views/admin_page/HealthRagKbManagement.vue"),
+  "HealthRagRetrievalDebug.vue": () =>
+    import("@/views/admin_page/HealthRagRetrievalDebug.vue"),
 };
 
 // 🚀 自动生成路由配置

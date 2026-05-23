@@ -103,6 +103,29 @@ export interface HealthModelConfigPayload {
   model?: string;
 }
 
+export interface HealthRetrievalDebugHit {
+  chunk_id: number;
+  score?: number;
+  rrf_score?: number;
+  rerank_score?: number;
+  document_id?: number;
+  document_title?: string;
+  chunk_index?: number;
+  source_path?: string;
+  vector_rank?: number | null;
+  sparse_rank?: number | null;
+  relevance_label?: string;
+}
+
+export interface HealthRetrievalDebugContext {
+  chunk_id: number;
+  chunk_text: string;
+  document_id: number;
+  document_title: string;
+  chunk_index: number;
+  source_path: string;
+}
+
 export const healthRagApi = {
   health(): Promise<ApiResponse<any>> {
     return request.get("/api/health-rag/health/");
@@ -137,7 +160,9 @@ export const healthRagApi = {
   },
 
   createDocumentFile(formData: FormData): Promise<ApiResponse<any>> {
-    return request.post("/api/health-rag/kb/documents/create/", formData);
+    return request.post("/api/health-rag/kb/documents/create/", formData, {
+      timeout: 300000,
+    });
   },
 
   updateDocument(payload: {
@@ -328,5 +353,63 @@ export const healthRagApi = {
     payload?: HealthModelConfigPayload & { warmup?: boolean },
   ): Promise<ApiResponse<any>> {
     return request.post("/api/health-rag/model/restart/", payload || {});
+  },
+
+  retrievalDebug(payload: {
+    question: string;
+    top_k?: number;
+  }): Promise<
+    ApiResponse<{
+      question: string;
+      rewritten_query: string;
+      top_k: number;
+      query_embedding_dim: number;
+      vector_hits: HealthRetrievalDebugHit[];
+      sparse_hits: HealthRetrievalDebugHit[];
+      rrf_hits: HealthRetrievalDebugHit[];
+      rerank_hits: HealthRetrievalDebugHit[];
+      final_hits: HealthRetrievalDebugHit[];
+      final_contexts: HealthRetrievalDebugContext[];
+      rerank_error?: string;
+      latency_ms: number;
+    }>
+  > {
+    return request.post("/api/health-rag/retrieval/debug/", payload, {
+      timeout: 120000,
+    });
+  },
+
+  runRagasEval(payload?: {
+    input?: string;
+    top_k?: number;
+    limit?: number;
+  }): Promise<
+    ApiResponse<{
+      elapsed_ms: number;
+      latest_result_file: string;
+      stdout: string;
+      stderr?: string;
+    }>
+  > {
+    return request.post("/api/health-rag/eval/ragas/run/", payload || {}, {
+      timeout: 600000,
+    });
+  },
+
+  runRetrievalEval(payload?: {
+    input?: string;
+    top_k?: number;
+    limit?: number;
+  }): Promise<
+    ApiResponse<{
+      elapsed_ms: number;
+      latest_result_file: string;
+      stdout: string;
+      stderr?: string;
+    }>
+  > {
+    return request.post("/api/health-rag/eval/retrieval/run/", payload || {}, {
+      timeout: 600000,
+    });
   },
 };

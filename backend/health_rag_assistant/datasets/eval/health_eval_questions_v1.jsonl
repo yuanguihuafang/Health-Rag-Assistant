@@ -1,0 +1,20 @@
+{"id":"q001","question":"长期失眠怎么调理？","expected_keywords":["睡眠","作息","放松","规律"],"expected_topic":"sleep"}
+{"id":"q002","question":"半夜总是早醒怎么办？","expected_keywords":["早醒","睡眠","作息","压力"],"expected_topic":"sleep"}
+{"id":"q003","question":"胃痛还反酸，平时要注意什么？","expected_keywords":["胃痛","反酸","饮食","就医"],"expected_topic":"digestive"}
+{"id":"q004","question":"经常腹泻需要做哪些检查？","expected_keywords":["腹泻","饮食","补水","检查"],"expected_topic":"digestive"}
+{"id":"q005","question":"便秘很多天了怎么缓解？","expected_keywords":["便秘","膳食纤维","饮水","运动"],"expected_topic":"digestive"}
+{"id":"q006","question":"发烧 38.5 度怎么处理？","expected_keywords":["发烧","体温","补液","就医"],"expected_topic":"cold"}
+{"id":"q007","question":"孩子发烧反复怎么办？","expected_keywords":["儿童发热","体温","儿科","警示"],"expected_topic":"pediatric"}
+{"id":"q008","question":"宝宝积食不爱吃饭怎么调理？","expected_keywords":["积食","喂养","清淡","儿科"],"expected_topic":"pediatric"}
+{"id":"q009","question":"胸闷心慌需要马上去医院吗？","expected_keywords":["胸闷","心慌","警示","就医"],"expected_topic":"cardio"}
+{"id":"q010","question":"高血压平时如何管理？","expected_keywords":["血压","监测","低盐","运动"],"expected_topic":"cardio"}
+{"id":"q011","question":"膝盖运动后酸痛怎么恢复？","expected_keywords":["膝盖","拉伸","休息","负重"],"expected_topic":"bone"}
+{"id":"q012","question":"久坐导致腰背不舒服怎么办？","expected_keywords":["久坐","活动","拉伸","姿势"],"expected_topic":"bone"}
+{"id":"q013","question":"女性经期腹痛怎么缓解？","expected_keywords":["经期","痛经","保暖","就医"],"expected_topic":"women"}
+{"id":"q014","question":"白带异常要注意哪些问题？","expected_keywords":["白带","妇科","感染","检查"],"expected_topic":"women"}
+{"id":"q015","question":"最近压力大总焦虑睡不好怎么办？","expected_keywords":["焦虑","压力","睡眠","放松"],"expected_topic":"emotion"}
+{"id":"q016","question":"减肥期间怎么安排饮食和运动？","expected_keywords":["减肥","热量","运动","坚持"],"expected_topic":"weight"}
+{"id":"q017","question":"体重一直降不下来是什么原因？","expected_keywords":["体重","饮食","运动","代谢"],"expected_topic":"weight"}
+{"id":"q018","question":"皮肤过敏发痒怎么护理？","expected_keywords":["过敏","瘙痒","刺激","就医"],"expected_topic":"skin"}
+{"id":"q019","question":"胸痛伴出冷汗是不是急症？","expected_keywords":["胸痛","出冷汗","急诊","立即"],"expected_topic":"urgent"}
+{"id":"q020","question":"呼吸困难时该怎么处理？","expected_keywords":["呼吸困难","急诊","观察","就医"],"expected_topic":"urgent"}

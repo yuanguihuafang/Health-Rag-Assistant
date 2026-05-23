@@ -1,0 +1,1515 @@
+{
+  "input_file": "D:\\AI\\Health-Rag-Assistant\\backend\\health_rag_assistant\\datasets\\eval\\health_eval_questions_cmedqa_v1.jsonl",
+  "created_at": "2026-05-23 18:51:01",
+  "metrics": {
+    "sample_count": 100,
+    "top_k": 5,
+    "recall_at_k": 0.33,
+    "mrr": 0.239,
+    "citation_hit_rate": 0.33,
+    "avg_latency_ms": 4534.69,
+    "low_confidence_ratio": 0.0
+  },
+  "details": [
+    {
+      "id": "cmedqa_0001",
+      "question": "痔疮手术后大便急可以恢复吗？痔疮导致便血pph痔疮手术后50多天，基本恢复，......但是感觉大便特别急，有便意时就要马上去，以前不这样的，这是什么原因，还可以恢复吗？如何确诊如何检查？......",
+      "latency_ms": 5092,
+      "hit_rank": 1,
+      "top_score": 0.5205,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 23817940",
+        "cMedQA 问答 60168534",
+        "cMedQA 问答 23832793",
+        "cMedQA 问答 53253678",
+        "cMedQA 问答 23137836"
+      ]
+    },
+    {
+      "id": "cmedqa_0002",
+      "question": "今天排大便的时候出血了，鲜红但是肚子不疼，肛门也不疼，这是为什么",
+      "latency_ms": 6746,
+      "hit_rank": 0,
+      "top_score": 0.7038,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 40834106",
+        "cMedQA 问答 51001527",
+        "cMedQA 问答 18325800",
+        "cMedQA 问答 63883606",
+        "cMedQA 问答 22248134"
+      ]
+    },
+    {
+      "id": "cmedqa_0003",
+      "question": "我上个月17号大姨妈来了，到27号结束，？我上个月17号大姨妈来了，到27号结束，这个月3号就来了。以前每次来都很痛的，上个月都不疼，可是现在这么早就又来了究竟是怎么回事",
+      "latency_ms": 4815,
+      "hit_rank": 0,
+      "top_score": 0.7361,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 24663961",
+        "cMedQA 问答 26756337",
+        "cMedQA 问答 62169940",
+        "cMedQA 问答 22904838",
+        "cMedQA 问答 63897000"
+      ]
+    },
+    {
+      "id": "cmedqa_0004",
+      "question": "大腿内侧有疙瘩，不痒怎么办，吃什么药",
+      "latency_ms": 4432,
+      "hit_rank": 0,
+      "top_score": 0.542,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 17008536",
+        "cMedQA 问答 40195766",
+        "cMedQA 问答 36602226",
+        "cMedQA 问答 15741554",
+        "cMedQA 问答 23451008"
+      ]
+    },
+    {
+      "id": "cmedqa_0005",
+      "question": "最近老是呕吐,是不是怀孕了？请问中山人流？最近老是呕吐,是不是怀孕了？请问中山人流哪家最安全？。无",
+      "latency_ms": 5148,
+      "hit_rank": 0,
+      "top_score": 0.5861,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 5606229",
+        "cMedQA 问答 37042162",
+        "cMedQA 问答 22697557",
+        "cMedQA 问答 47602446",
+        "cMedQA 问答 33279093"
+      ]
+    },
+    {
+      "id": "cmedqa_0006",
+      "question": "重症肌无力生活上如何护理？曾经治疗情况和效果：重症肌无力生活上如何护理？我的工作一直都很忙，老公患有重症肌无力，一直没有好好照顾，前段时间在昆明南大脑科医院接受过治疗，治疗效果很好，我想知道重症肌无力生活上如何护理？重症肌无力生活上如何护理？",
+      "latency_ms": 4640,
+      "hit_rank": 3,
+      "top_score": 0.5676,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 39520891",
+        "cMedQA 问答 38976539",
+        "cMedQA 问答 51514841",
+        "cMedQA 问答 42128761"
+      ]
+    },
+    {
+      "id": "cmedqa_0007",
+      "question": "我看黄片的时候看15分钟左右鸡巴就会流出少量的精子，这样是不是早泄啊？",
+      "latency_ms": 5161,
+      "hit_rank": 5,
+      "top_score": 0.4895,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 12022877",
+        "cMedQA 问答 14702380",
+        "cMedQA 问答 28976415",
+        "cMedQA 问答 30175334",
+        "主题化健康人群风险 条目 065：射精太快能先怎么调整"
+      ]
+    },
+    {
+      "id": "cmedqa_0008",
+      "question": "你好，我家小孩今天才13天，今天去医院检查小孩有肺炎和高胆红素血症。医院说要观察一个星期，要这么长时间吗，这二种病常见吗。",
+      "latency_ms": 4992,
+      "hit_rank": 4,
+      "top_score": 0.5795,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 10210166",
+        "cMedQA 问答 56967765",
+        "cMedQA 问答 52565769",
+        "cMedQA 问答 31501143",
+        "cMedQA 问答 41457157"
+      ]
+    },
+    {
+      "id": "cmedqa_0009",
+      "question": "左手中指抽筋似的疼是怎么一回事",
+      "latency_ms": 5074,
+      "hit_rank": 0,
+      "top_score": 0.632,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 50819096",
+        "cMedQA 问答 9852400",
+        "cMedQA 问答 15289835",
+        "cMedQA 问答 37215555",
+        "cMedQA 问答 38286201"
+      ]
+    },
+    {
+      "id": "cmedqa_0010",
+      "question": "全部症状：女友在危险期。我用香皂洗过的手触摸她的阴部，后面用阴茎顶了她的阴道几下，没有进去，也没射精，最后在旁边靠手淫把精液排出去了，请问综上所述，她会怀孕吗？发病时间及原因：治疗情况：",
+      "latency_ms": 4838,
+      "hit_rank": 0,
+      "top_score": 0.8561,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 11172301",
+        "cMedQA 问答 12435876",
+        "cMedQA 问答 15182709",
+        "cMedQA 问答 46780376",
+        "cMedQA 问答 21284937"
+      ]
+    },
+    {
+      "id": "cmedqa_0011",
+      "question": "你好！我老婆在生小孩的路上出了车祸，大腿骨折，还在输水，小孩能吃奶吗？",
+      "latency_ms": 4761,
+      "hit_rank": 0,
+      "top_score": 0.6758,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 3964531",
+        "cMedQA 问答 4163599",
+        "cMedQA 问答 9612109",
+        "cMedQA 问答 14520475",
+        "cMedQA 问答 67121965"
+      ]
+    },
+    {
+      "id": "cmedqa_0012",
+      "question": "感冒咳嗖说不出话，胸部疼",
+      "latency_ms": 4540,
+      "hit_rank": 0,
+      "top_score": 0.6884,
+      "citation_hit": false,
+      "top_context_titles": [
+        "呼吸免疫 076：咳嗽时胸口震得疼，是不是感染严重了？",
+        "cMedQA 问答 41454023",
+        "cMedQA 问答 61526399",
+        "cMedQA 问答 54508615",
+        "呼吸免疫 101：感冒时胸闷但不怎么咳嗽，要紧吗？"
+      ]
+    },
+    {
+      "id": "cmedqa_0013",
+      "question": "我家儿子从满月的前一天开始满脸起疹子，都说是湿疹，当时乙肝疫苗第二针也没有打，后来用了糠酸莫米松凝胶，用了就会好，但是还是反复，今天这个部位起，用了药就好，明天另一个部位又起，现在都五十天了，前胸和肩膀也是反复起，问什么时候可以打预防针。",
+      "latency_ms": 5167,
+      "hit_rank": 1,
+      "top_score": 0.5753,
+      "citation_hit": true,
+      "top_context_titles": [
+        "主题化健康人群风险 条目 115：宝宝湿疹总反复怎么办正常吗",
+        "主题化健康人群风险 条目 113：宝宝湿疹总反复怎么办",
+        "主题化健康人群风险 条目 116：宝宝湿疹总反复怎么办需要去医院吗",
+        "cMedQA 问答 9173898",
+        "cMedQA 问答 49116530"
+      ]
+    },
+    {
+      "id": "cmedqa_0014",
+      "question": "您好，有痔疮几年了，但是今年痔疮有变大，想买药膏来涂，可是不知道要涂什么样子的？平时不觉得痛！！感谢医生为我快速解答――该如何治疗和预防",
+      "latency_ms": 5002,
+      "hit_rank": 1,
+      "top_score": 0.7292,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 26671356",
+        "cMedQA 问答 23881382",
+        "cMedQA 问答 25341675",
+        "cMedQA 问答 65897226",
+        "cMedQA 问答 55760825"
+      ]
+    },
+    {
+      "id": "cmedqa_0015",
+      "question": "我母亲脖子粗。眼胀痛。四肢无力肿胀。指甲双层。舌头说话发硬。烦躁。在宿州市立医院住了13天。检查心脏彩超结果左心增大。左室收缩功能下降。二尖瓣。主动脉瓣少量反流。甲状腺功能检查TST;.100，TT3;0.42,T4;10.78,FT3;0.93，FT4;0.96，但是甲状腺彩超结果你慢性甲状腺肿符合甲亢。还做了摄碘率检查结果比参考值偏高也说是甲亢后来又检查甲状腺功能结果和原来差不多。医生确诊甲减让服左甲状腺素片0.25片每天，但是6月15日出院。16号四肢又肿起来了今天也是。出院当天也吊水了。自住院起吊的水都是关于心血管呵脑蛋白。现在咋么办请指教",
+      "latency_ms": 5655,
+      "hit_rank": 0,
+      "top_score": 0.6214,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 58371277",
+        "cMedQA 问答 38431959",
+        "cMedQA 问答 40571345",
+        "cMedQA 问答 16493450",
+        "cMedQA 问答 51151807"
+      ]
+    },
+    {
+      "id": "cmedqa_0016",
+      "question": "哈尔滨哪里看肝癌好？――哈医大四院不错",
+      "latency_ms": 5273,
+      "hit_rank": 0,
+      "top_score": 0.3869,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 10437600",
+        "cMedQA 问答 9729440",
+        "cMedQA 问答 10124826",
+        "cMedQA 问答 56922249",
+        "cMedQA 问答 10251664"
+      ]
+    },
+    {
+      "id": "cmedqa_0017",
+      "question": "大便出血科？我大便出血是怎么回事我以前都很正常，就是有点便秘，.........前几天都是拉稀，排便不出血，前三天的时候排便干，而且排便的时候轻微疼痛，像刀子割的那种疼，但是停止排便之后就缓解了，但是感觉还没啥，结果今天又出血了，血液鲜红色，不与大便混合，大便颜色正常，呈黄色，出血量不大，请专家帮我看看是怎么回事，谢谢是由什么原因引起的？.........",
+      "latency_ms": 5443,
+      "hit_rank": 2,
+      "top_score": 0.7239,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 62594767",
+        "cMedQA 问答 19794896",
+        "cMedQA 问答 22248134",
+        "cMedQA 问答 51001527",
+        "cMedQA 问答 60168534"
+      ]
+    },
+    {
+      "id": "cmedqa_0018",
+      "question": "舌苔很厚嘴里很苦没什么食欲是什么火？",
+      "latency_ms": 4928,
+      "hit_rank": 0,
+      "top_score": 0.6445,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 46683896",
+        "cMedQA 问答 4884863",
+        "cMedQA 问答 15837645",
+        "cMedQA 问答 27390432",
+        "cMedQA 问答 18330123"
+      ]
+    },
+    {
+      "id": "cmedqa_0019",
+      "question": "肛门处出现泡是肛周脓肿吗？我的肛门处出现泡泡是肛周脓肿吗？肛门处出现泡是肛周脓肿吗？",
+      "latency_ms": 4298,
+      "hit_rank": 0,
+      "top_score": 0.5969,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 10596746",
+        "cMedQA 问答 65923582",
+        "cMedQA 问答 26144206",
+        "cMedQA 问答 36602226",
+        "cMedQA 问答 12826105"
+      ]
+    },
+    {
+      "id": "cmedqa_0020",
+      "question": "脖子左侧肿疼是甲亢吗",
+      "latency_ms": 4777,
+      "hit_rank": 0,
+      "top_score": 0.9041,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 29446674",
+        "cMedQA 问答 58371277",
+        "cMedQA 问答 40571345",
+        "cMedQA 问答 3130549",
+        "cMedQA 问答 16493450"
+      ]
+    },
+    {
+      "id": "cmedqa_0021",
+      "question": "您好我有子宫肌瘤但是又怀孕了想要这个孩子我生产的时候肌瘤可以宝宝一起拿出来吧",
+      "latency_ms": 5569,
+      "hit_rank": 1,
+      "top_score": 0.5229,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 16158253",
+        "cMedQA 问答 19788323",
+        "cMedQA 问答 69325911",
+        "cMedQA 问答 4287677",
+        "cMedQA 问答 49236673"
+      ]
+    },
+    {
+      "id": "cmedqa_0022",
+      "question": "最近同事家的孩子都说要打防流感的疫苗我一直都没有给孩子打过这种疫苗但是我的孩子也总生病不知道可不可以打打了之后会怎么样呢很怕孩子免疫力会下降孩子总生病可以打流感疫苗吗？",
+      "latency_ms": 4910,
+      "hit_rank": 0,
+      "top_score": 0.5246,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 5826484",
+        "cMedQA 问答 45622153",
+        "cMedQA 问答 54471266",
+        "cMedQA 问答 11934689",
+        "呼吸免疫 104：怎样做能减少反复呼吸道小毛病？"
+      ]
+    },
+    {
+      "id": "cmedqa_0023",
+      "question": "延安医院预约挂号曾经治疗情况和效果：胸内有少量积液，及胸闷请问医生，像这样的情况，如何治疗？",
+      "latency_ms": 4865,
+      "hit_rank": 0,
+      "top_score": 0.7322,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 6441968",
+        "cMedQA 问答 66278448",
+        "cMedQA 问答 20151686"
+      ]
+    },
+    {
+      "id": "cmedqa_0024",
+      "question": "肩胛骨骨裂和锁骨骨折后不知道要如何去帮助恢复肩胛骨骨裂和锁骨骨折后的生活上的注意事项（）",
+      "latency_ms": 5854,
+      "hit_rank": 0,
+      "top_score": 0.4494,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 21307830",
+        "cMedQA 问答 5296165",
+        "cMedQA 问答 40256247",
+        "cMedQA 问答 36742055",
+        "cMedQA 问答 51268852"
+      ]
+    },
+    {
+      "id": "cmedqa_0025",
+      "question": "全部症状：就像蚊子咬得一样发病时间及原因：大概有个一多月治疗情况：就查阿昔洛韦软膏但好点了，昨天坐火车来东莞身上又发了好多",
+      "latency_ms": 4725,
+      "hit_rank": 4,
+      "top_score": 0.8468,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 9161990",
+        "cMedQA 问答 10829121",
+        "cMedQA 问答 5538772",
+        "cMedQA 问答 10190053",
+        "cMedQA 问答 7615396"
+      ]
+    },
+    {
+      "id": "cmedqa_0026",
+      "question": "你好。口臭，牙龈出血，恶心，难受",
+      "latency_ms": 4925,
+      "hit_rank": 1,
+      "top_score": 0.8871,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 27016182",
+        "cMedQA 问答 10846331",
+        "cMedQA 问答 3709107",
+        "cMedQA 问答 62837329",
+        "cMedQA 问答 26867358"
+      ]
+    },
+    {
+      "id": "cmedqa_0027",
+      "question": "带状孢疹水泡破皮疼痛难忍心脏病患者能否用芬必得止痛？我妈53岁现在腰间长了半圈带状孢疹已经快2周了水泡已经破皮部分已经结痂非常痛吃阿昔洛韦片会呕吐现在用阿昔洛韦软膏涂抹患处她是风湿性心脏病患者正在服用地高辛、塞呋米这些药能不能用芬必得止痛？曾经治疗情况和效果：风湿性心脏病、血小板低正在服用地高辛、塞呋米这些药能不能用芬必得止痛？若停药（地高辛、塞呋米）一天能不能用芬必得？（）",
+      "latency_ms": 4682,
+      "hit_rank": 0,
+      "top_score": 0.5143,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 10278456",
+        "cMedQA 问答 31366190",
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 39428574",
+        "cMedQA 问答 38976539"
+      ]
+    },
+    {
+      "id": "cmedqa_0028",
+      "question": "腰椎滑脱1度,退行性变,久站或者久坐腰部很痛,晚上睡觉也会疼痛:",
+      "latency_ms": 4302,
+      "hit_rank": 0,
+      "top_score": 0.8675,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 41734933",
+        "生活方式健康问答 条目 166：久坐一天腰背酸，平时怎么活动比较实用？",
+        "生活方式健康问答 条目 182：久坐会不会让体重更难降下来？",
+        "生活方式健康问答 条目 215：办公室久坐的人，中午不运动会不会太亏？",
+        "骨骼关节神经 157：久坐后腰很酸，是腰椎出问题了吗？"
+      ]
+    },
+    {
+      "id": "cmedqa_0029",
+      "question": "我有颈椎病，脖子僵硬，疼痛，肩背疼痛。在医院拿了膏药。医生让贴在肩肘和颈五个部位。具体找不好哪个地方。",
+      "latency_ms": 4261,
+      "hit_rank": 1,
+      "top_score": 0.4834,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 20196924",
+        "cMedQA 问答 21277587",
+        "cMedQA 问答 22256127",
+        "cMedQA 问答 21874895",
+        "cMedQA 问答 25473840"
+      ]
+    },
+    {
+      "id": "cmedqa_0030",
+      "question": "我朋友她大姨妈来了十几天了，去了医院吃了止血药现在血时粉红色的怎么回事。上个月行房了",
+      "latency_ms": 4349,
+      "hit_rank": 0,
+      "top_score": 0.614,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 18581829",
+        "cMedQA 问答 63897000",
+        "cMedQA 问答 35090212",
+        "cMedQA 问答 6425460",
+        "cMedQA 问答 8467660"
+      ]
+    },
+    {
+      "id": "cmedqa_0031",
+      "question": "私部烧痒？就是下体感觉很痒。。请问这是什么原因呢\"以前从来没有的。",
+      "latency_ms": 4162,
+      "hit_rank": 0,
+      "top_score": 0.5939,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 39369454",
+        "cMedQA 问答 48450699",
+        "cMedQA 问答 18161504",
+        "cMedQA 问答 49500364",
+        "主题化健康人群风险 条目 077：阴囊潮湿发痒怎么处理"
+      ]
+    },
+    {
+      "id": "cmedqa_0032",
+      "question": "坐骨神经痛有什么症状左腿痛到腰部膝盖？坐骨神经痛有什么症状左腿痛到腰部膝盖以下发麻。吃过一些药我想问一下是坐骨神经痛还是腰脱如果是怎么治疗",
+      "latency_ms": 4287,
+      "hit_rank": 0,
+      "top_score": 0.652,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 11092663",
+        "骨骼关节神经 161：腰痛往腿上窜，是坐骨神经痛吗？",
+        "cMedQA 问答 38621728",
+        "cMedQA 问答 9086929",
+        "cMedQA 问答 42186980"
+      ]
+    },
+    {
+      "id": "cmedqa_0033",
+      "question": "做爱后出现像大姨妈一样的东西做爱时流出像大姨妈一样的东西您好，7月份的时候月经是8号来的12号结束31号的时候跟男友做爱后发现出现少量大姨妈一样的东西当天晚上后来就没了3号中午做了又出现像大姨妈一样的东西量很少像是月经刚来的时候这是怎么回事几个小时后就没了6月分由于失眠生活不规律月经没来之前几个月都是20号出头月底结束的",
+      "latency_ms": 4478,
+      "hit_rank": 0,
+      "top_score": 0.6345,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 35090212",
+        "cMedQA 问答 33824679",
+        "cMedQA 问答 61274036",
+        "cMedQA 问答 26756337",
+        "cMedQA 问答 63897000"
+      ]
+    },
+    {
+      "id": "cmedqa_0034",
+      "question": "手掌经常出汗看看可以吃什么药治疗",
+      "latency_ms": 4018,
+      "hit_rank": 0,
+      "top_score": 0.5523,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 61546596",
+        "cMedQA 问答 26081004",
+        "cMedQA 问答 48298220",
+        "cMedQA 问答 6983648",
+        "cMedQA 问答 62517081"
+      ]
+    },
+    {
+      "id": "cmedqa_0035",
+      "question": "你好!我在四天前发现龟头边缘有一小点绿豆大小，有疼痛感、这几天发现有点不太对头是不是长湿疣了？",
+      "latency_ms": 4144,
+      "hit_rank": 2,
+      "top_score": 0.5143,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 58762854",
+        "cMedQA 问答 28401329",
+        "cMedQA 问答 67990362",
+        "cMedQA 问答 60415581",
+        "cMedQA 问答 26103788"
+      ]
+    },
+    {
+      "id": "cmedqa_0036",
+      "question": "好想好想怀个宝宝1月8号来的月经、经期一个周、周期是大概20几天、那么我的排卵是好多号呢！22.23.28.号有同房、2月1号2号也同房、能怀吗？这几天胸部有点痛、是月经要来了吗？",
+      "latency_ms": 4482,
+      "hit_rank": 0,
+      "top_score": 0.9579,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 35298674",
+        "cMedQA 问答 26756337",
+        "cMedQA 问答 33421284",
+        "cMedQA 问答 46568618",
+        "cMedQA 问答 63288741"
+      ]
+    },
+    {
+      "id": "cmedqa_0037",
+      "question": "我喜欢群交一晚上喜欢与多个男人做爱生殖**现在有点点痒是不是爱滋病啊",
+      "latency_ms": 4064,
+      "hit_rank": 1,
+      "top_score": 0.6221,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 17986968",
+        "cMedQA 问答 7448462",
+        "cMedQA 问答 15614826",
+        "cMedQA 问答 48450699",
+        "cMedQA 问答 54714616"
+      ]
+    },
+    {
+      "id": "cmedqa_0038",
+      "question": "我想问下，这两天经常有大便次数增多，一天3,4次，便有点发黑，有痔疮，怎么回事？会不会是肠癌啊",
+      "latency_ms": 4482,
+      "hit_rank": 2,
+      "top_score": 0.7232,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 20522208",
+        "cMedQA 问答 62594767",
+        "cMedQA 问答 23817940",
+        "cMedQA 问答 60168534",
+        "cMedQA 问答 23832793"
+      ]
+    },
+    {
+      "id": "cmedqa_0039",
+      "question": "病情描述发病时间、主要症状、症状变化等）：我的公公最近的症状就是抽风，有口歪眼斜的症状，但是他的病不是口吐白沫的症状，听说他的病应该是羊角风的症状，但是还是没有做过正规的检查的呢，羊角风的症状是什么呀。",
+      "latency_ms": 4295,
+      "hit_rank": 1,
+      "top_score": 0.7132,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 3237960",
+        "cMedQA 问答 50769142",
+        "cMedQA 问答 19829791",
+        "cMedQA 问答 20640048",
+        "cMedQA 问答 15719315"
+      ]
+    },
+    {
+      "id": "cmedqa_0040",
+      "question": "长时间头胀，眼睛不舒服，总感觉很迷糊，注意力不集中，大约有4天的时间了。",
+      "latency_ms": 4361,
+      "hit_rank": 0,
+      "top_score": 0.6825,
+      "citation_hit": false,
+      "top_context_titles": [
+        "身体系统主题化健康问答扩容语料 条目 247：一用眼久就太阳穴胀，和眼睛有关吗？",
+        "cMedQA 问答 66334487",
+        "cMedQA 问答 6002285",
+        "cMedQA 问答 48984800",
+        "cMedQA 问答 14856265"
+      ]
+    },
+    {
+      "id": "cmedqa_0041",
+      "question": "口苦口干口臭嘴里很热有十几年了",
+      "latency_ms": 4038,
+      "hit_rank": 1,
+      "top_score": 0.8632,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 27390432",
+        "cMedQA 问答 10846331",
+        "cMedQA 问答 11642986",
+        "cMedQA 问答 9205046",
+        "cMedQA 问答 18330123"
+      ]
+    },
+    {
+      "id": "cmedqa_0042",
+      "question": "为什么手脚老抽筋发麻",
+      "latency_ms": 4092,
+      "hit_rank": 0,
+      "top_score": 0.6323,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 49123822",
+        "cMedQA 问答 58070228",
+        "cMedQA 问答 33396178",
+        "心血管 023：手脚发麻会不会是心脑血管堵了？",
+        "cMedQA 问答 28919771"
+      ]
+    },
+    {
+      "id": "cmedqa_0043",
+      "question": "老想小便是�言械尼缯��幔�",
+      "latency_ms": 4078,
+      "hit_rank": 0,
+      "top_score": 0.6003,
+      "citation_hit": false,
+      "top_context_titles": [
+        "主题化健康人群风险 条目 045：尿频尿急是不是前列腺有问题",
+        "主题化健康人群风险 条目 048：尿频尿急是不是前列腺有问题需要去医院吗",
+        "主题化健康人群风险 条目 046：尿频尿急是不是前列腺有问题怎么办",
+        "cMedQA 问答 11996751",
+        "cMedQA 问答 27170960"
+      ]
+    },
+    {
+      "id": "cmedqa_0044",
+      "question": "大便带血吃药可以么大便带血还要滴血的情况吃药可以好么？？",
+      "latency_ms": 4163,
+      "hit_rank": 0,
+      "top_score": 0.7162,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 55760825",
+        "cMedQA 问答 29197685",
+        "cMedQA 问答 35808088",
+        "cMedQA 问答 60168534",
+        "cMedQA 问答 23832793"
+      ]
+    },
+    {
+      "id": "cmedqa_0045",
+      "question": "你好I，我怀孕六个月半去做的B超才，双顶径为7.4，股骨长为5cm，这正常吗",
+      "latency_ms": 4287,
+      "hit_rank": 0,
+      "top_score": 0.5769,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 65055922",
+        "cMedQA 问答 34122807",
+        "cMedQA 问答 44066719",
+        "cMedQA 问答 26114795",
+        "cMedQA 问答 38350656"
+      ]
+    },
+    {
+      "id": "cmedqa_0046",
+      "question": "我28岁，破腹产，生完孩子两个多月我突然抽风了和癫痫症状差不多，但是不吐白沫，现在孩子七个月了又发作两次，我怎么会这样呢。家里也没谁得过癫痫那曾经治疗情况和效果：脑电图，脑CT都没事我应该得到怎样得治疗和吃什么样得药？我现在吃得是苯妥英钠可以吗",
+      "latency_ms": 4564,
+      "hit_rank": 0,
+      "top_score": 0.7586,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 37920662",
+        "cMedQA 问答 50769142",
+        "cMedQA 问答 15719315",
+        "cMedQA 问答 3237960",
+        "cMedQA 问答 20640048"
+      ]
+    },
+    {
+      "id": "cmedqa_0047",
+      "question": "病情描述发病时间、主要症状、症状变化等）：断奶时积奶有疙瘩现在二十天了还没下去，今天去医院检查说是轻度乳腺增生还有斑片怎么治疗",
+      "latency_ms": 4252,
+      "hit_rank": 0,
+      "top_score": 0.5931,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 57495806",
+        "cMedQA 问答 59016275",
+        "cMedQA 问答 57985289",
+        "cMedQA 问答 35211429",
+        "cMedQA 问答 57676730"
+      ]
+    },
+    {
+      "id": "cmedqa_0048",
+      "question": "病情描述发病时间、主要症状、症状变化等）：儿子得了多动症，老是喜欢动来动去的，很不能集中注意力，在学校连老师的话都不听，在学校调皮捣蛋，还打架，学习马马虎虎的，成绩不好，不能把注意力放到一个事情上，说脏话骂人的。",
+      "latency_ms": 4390,
+      "hit_rank": 0,
+      "top_score": 0.7439,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 58824200",
+        "cMedQA 问答 58857839",
+        "cMedQA 问答 58603375",
+        "cMedQA 问答 57495806",
+        "cMedQA 问答 58304717"
+      ]
+    },
+    {
+      "id": "cmedqa_0049",
+      "question": "包皮手术做完了，可我问医生他说不要拆线，他说过七八天会掉，请问是真的吗？？？",
+      "latency_ms": 4254,
+      "hit_rank": 4,
+      "top_score": 0.7933,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 44836083",
+        "cMedQA 问答 14967742",
+        "cMedQA 问答 20345967",
+        "cMedQA 问答 38054335",
+        "cMedQA 问答 28116687"
+      ]
+    },
+    {
+      "id": "cmedqa_0050",
+      "question": "怀孕24周做了三维彩超各项指数都属于正常范围。就是羊水过多：厚径7.6cm羊水指数25.cm昨天抽血验了血糖没有糖尿病。请问这样羊水过多会影响胎儿吗？",
+      "latency_ms": 4346,
+      "hit_rank": 0,
+      "top_score": 0.6718,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 25085017",
+        "cMedQA 问答 66660798",
+        "cMedQA 问答 53828525",
+        "cMedQA 问答 65055922",
+        "cMedQA 问答 54781676"
+      ]
+    },
+    {
+      "id": "cmedqa_0051",
+      "question": "排队时间太长？上次一个朋友说要去旅游，他没时间，就叫我帮他去火车站买票，我也就随口答应了，一进站就看到好多人排队，当我排了大概半个小时后，我感到就自己有种老眼昏花的感觉，不知道是不是站久了的缘故？。排队时间很长为什么会出现眼睛花的现象？",
+      "latency_ms": 4474,
+      "hit_rank": 0,
+      "top_score": 0.4633,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 10840005",
+        "cMedQA 问答 5536116",
+        "cMedQA 问答 26515603",
+        "身体系统主题化健康问答扩容语料 条目 247：一用眼久就太阳穴胀，和眼睛有关吗？",
+        "cMedQA 问答 12281958"
+      ]
+    },
+    {
+      "id": "cmedqa_0052",
+      "question": "我42岁经查血压高，高压140低压110，请问怎么办",
+      "latency_ms": 4200,
+      "hit_rank": 1,
+      "top_score": 0.6357,
+      "citation_hit": true,
+      "top_context_titles": [
+        "身体系统主题化健康问答扩容语料 条目 261：老人血压偏高平时怎么管理？",
+        "cMedQA 问答 63616381",
+        "cMedQA 问答 21982316",
+        "cMedQA 问答 54248736",
+        "心血管 003：血压忽高忽低，是不是高血压了？"
+      ]
+    },
+    {
+      "id": "cmedqa_0053",
+      "question": "围产NT检查是检查什么",
+      "latency_ms": 4073,
+      "hit_rank": 0,
+      "top_score": 0.4127,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 56151642",
+        "cMedQA 问答 30527685",
+        "cMedQA 问答 40375019",
+        "cMedQA 问答 19125118",
+        "cMedQA 问答 68077781"
+      ]
+    },
+    {
+      "id": "cmedqa_0054",
+      "question": "你好，我家宝宝吃了一角的硬币都十五天了，拍片看在肠子里，怎么办啊，谢谢了。",
+      "latency_ms": 4229,
+      "hit_rank": 0,
+      "top_score": 0.5577,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 27761883",
+        "cMedQA 问答 9569584",
+        "cMedQA 问答 58827234",
+        "cMedQA 问答 29874227",
+        "cMedQA 问答 47546619"
+      ]
+    },
+    {
+      "id": "cmedqa_0055",
+      "question": "我体寒，冬天手脚冰凉，每个月来月经都不正常，月经偏黑，少，有血快，今年3月份有子宫内膜息肉，做过刮宫术，后来白带也多了，吃过药，好是好了，治标不治本儿又来了，断断续续，请问有什么办法治疗?会不会影响怀孕？",
+      "latency_ms": 4341,
+      "hit_rank": 0,
+      "top_score": 0.6899,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 30807511",
+        "cMedQA 问答 25124520",
+        "cMedQA 问答 63900539",
+        "cMedQA 问答 6425460",
+        "cMedQA 问答 51546550"
+      ]
+    },
+    {
+      "id": "cmedqa_0056",
+      "question": "心脏早搏饮食应该注意些什么",
+      "latency_ms": 4012,
+      "hit_rank": 0,
+      "top_score": 0.3939,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 38275707",
+        "心血管 008：最近总觉得心跳漏一拍，是早搏吗？",
+        "cMedQA 问答 9445069",
+        "cMedQA 问答 38275707",
+        "cMedQA 问答 39423699"
+      ]
+    },
+    {
+      "id": "cmedqa_0057",
+      "question": "医生你好儿子每年都有支气管哮喘有时是季节性的发作也有过敏性的发作如玉米等引起的症状是咳嗽呼吸困难晚上尤其厉害有时不能卧睡坐在床上整夜咳嗽呼吸困难儿子支气管哮喘能治愈吗？",
+      "latency_ms": 4372,
+      "hit_rank": 1,
+      "top_score": 0.4417,
+      "citation_hit": true,
+      "top_context_titles": [
+        "呼吸免疫 065：咳嗽时有点喘，是不是哮喘？",
+        "cMedQA 问答 11934689",
+        "cMedQA 问答 52565769",
+        "cMedQA 问答 26827334",
+        "cMedQA 问答 58603375"
+      ]
+    },
+    {
+      "id": "cmedqa_0058",
+      "question": "一岁宝宝腹泻你好医生，，，我家宝宝刚满一岁，秋季腹泻怎么治，大便拉的像水一样还发烧怎么办，急急急",
+      "latency_ms": 4358,
+      "hit_rank": 0,
+      "top_score": 0.6783,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 14997509",
+        "cMedQA 问答 29874227",
+        "cMedQA 问答 29182764",
+        "cMedQA 问答 58827234",
+        "cMedQA 问答 46081568"
+      ]
+    },
+    {
+      "id": "cmedqa_0059",
+      "question": "脸上起癣了怎么办啊唉",
+      "latency_ms": 4426,
+      "hit_rank": 0,
+      "top_score": 0.5849,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 49116530",
+        "cMedQA 问答 10829121",
+        "cMedQA 问答 60087045",
+        "cMedQA 问答 38683397",
+        "cMedQA 问答 66172535"
+      ]
+    },
+    {
+      "id": "cmedqa_0060",
+      "question": "怀孕4月前几天感觉胎动现在好几天没有感觉到了怀孕4月前几天感觉胎动这几天没有感觉到了而且左右侧还有时候有一点痛然后就好了。我咋天听了个胎心又说正常还要做什么检查吗",
+      "latency_ms": 4274,
+      "hit_rank": 0,
+      "top_score": 0.6462,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 69411480",
+        "主题化健康人群风险 条目 035：胎动突然减少怎么办正常吗",
+        "主题化健康人群风险 条目 033：胎动突然减少怎么办",
+        "主题化健康人群风险 条目 036：胎动突然减少怎么办需要去医院吗",
+        "cMedQA 问答 52311981"
+      ]
+    },
+    {
+      "id": "cmedqa_0061",
+      "question": "全部症状：脸上身上过敏发病时间及原因：上周感冒了，好了还是有点咳嗽，儿童医院说脾胃不和，开了五维赖氨酸颗粒，儿童回春颗粒，小儿康颗粒，服用三天后，过敏。治疗情况：",
+      "latency_ms": 4313,
+      "hit_rank": 0,
+      "top_score": 0.8986,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 10829121",
+        "cMedQA 问答 19911117",
+        "cMedQA 问答 9729440",
+        "cMedQA 问答 55252941",
+        "cMedQA 问答 15741554"
+      ]
+    },
+    {
+      "id": "cmedqa_0062",
+      "question": "肛门瘙痒，便血，但不疼，一般喝酒后体现明显，是痔疮吗？什么程度，怎么治疗？能根除吗？",
+      "latency_ms": 4298,
+      "hit_rank": 0,
+      "top_score": 0.7204,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 19628634",
+        "cMedQA 问答 36602226",
+        "cMedQA 问答 35808088",
+        "cMedQA 问答 68546230",
+        "cMedQA 问答 40834106"
+      ]
+    },
+    {
+      "id": "cmedqa_0063",
+      "question": "患者信息：女0岁河北唐山病情描述(发病时间、主要症状等)：右心房室扩大，左心内径正常，室间隔与左室后壁运动正常，收缩期增厚率正常。房间隔中部回声脱失约11*7mm；室间隔延续完整，三尖瓣瓣环扩大，瓣膜闭合欠佳，余瓣膜形态、结构、启闭正常。大动脉关系及发育正常，主动脉弓降部正常。多普勒检查：房水平左向右分流。三尖瓣少量返流超声提示先天性心脏病II孔型房间膈缺损（中央型）房水平左向右分流三尖瓣少量返流希望大家认真看看，运用自己的专业帮我解决问题，如果不懂请不要乱说，这与小孩的健康有关.孩子是7个半月的早产孩，现在生下来两个月了，被查出有先天性心脏病，想请问一下什么时候做手术好，大约需要多少费用，曾经治疗情况及是否有过敏、遗传病史：孩子妈妈是脑瘫，不知道是不是遗传啊。还有一点孩子睡觉时手脚有时会抽出，好像吓倒一样，不是冷。",
+      "latency_ms": 4789,
+      "hit_rank": 3,
+      "top_score": 0.6244,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 40375019",
+        "cMedQA 问答 9445069",
+        "cMedQA 问答 24923881",
+        "cMedQA 问答 37920662",
+        "cMedQA 问答 39423699"
+      ]
+    },
+    {
+      "id": "cmedqa_0064",
+      "question": "如果怀孕了，做人流或者选择吃药流产，对日后再次怀孕的机会率那个伤害少些？",
+      "latency_ms": 4381,
+      "hit_rank": 1,
+      "top_score": 0.7334,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 53473851",
+        "cMedQA 问答 37042162",
+        "cMedQA 问答 48070159",
+        "cMedQA 问答 21140424",
+        "cMedQA 问答 49877104"
+      ]
+    },
+    {
+      "id": "cmedqa_0065",
+      "question": "我公公今年57岁，下肢动脉硬化闭塞症，目前的症状表现为:患者行走一定距离后，出现疼痛，酸胀，一般休息片刻即能缓解，再次行走一定距离后还会出现同样的症状.现在又出现了浮肿症状。我想了解一下下肢动脉硬化闭塞症要注意什么。",
+      "latency_ms": 4200,
+      "hit_rank": 0,
+      "top_score": 0.4613,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 6441968",
+        "生活方式健康问答 条目 195：久坐后脚踝有点肿，活动一下会好点，这要紧吗？",
+        "cMedQA 问答 8978821",
+        "cMedQA 问答 6002285",
+        "cMedQA 问答 48746308"
+      ]
+    },
+    {
+      "id": "cmedqa_0066",
+      "question": "感冒输液后手脚发麻是怎么回事？",
+      "latency_ms": 4122,
+      "hit_rank": 0,
+      "top_score": 0.6076,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 59184812",
+        "cMedQA 问答 5302259",
+        "cMedQA 问答 11186298",
+        "cMedQA 问答 58070228",
+        "cMedQA 问答 33396178"
+      ]
+    },
+    {
+      "id": "cmedqa_0067",
+      "question": "你好我小孩感冒咳嗽好久了喉咙很多痰吃什么药比较好，谢谢曾经治疗情况和效果：打了俩天针效果不是很好感冒咳嗽痰多该如何治疗",
+      "latency_ms": 4224,
+      "hit_rank": 0,
+      "top_score": 0.9371,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 37680522",
+        "cMedQA 问答 25181789",
+        "cMedQA 问答 5550411",
+        "cMedQA 问答 24497290",
+        "cMedQA 问答 58820143"
+      ]
+    },
+    {
+      "id": "cmedqa_0068",
+      "question": "我大姨妈就这个月来两次，怎么回事。。。。",
+      "latency_ms": 4323,
+      "hit_rank": 0,
+      "top_score": 0.8477,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 61274036",
+        "cMedQA 问答 63897000",
+        "cMedQA 问答 62169940",
+        "cMedQA 问答 34534298",
+        "cMedQA 问答 18581829"
+      ]
+    },
+    {
+      "id": "cmedqa_0069",
+      "question": "患有阴虱病怎么可以得到治疗",
+      "latency_ms": 4241,
+      "hit_rank": 4,
+      "top_score": 0.3839,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 7619129",
+        "cMedQA 问答 49500364",
+        "cMedQA 问答 4613516",
+        "cMedQA 问答 42260657",
+        "cMedQA 问答 18161504"
+      ]
+    },
+    {
+      "id": "cmedqa_0070",
+      "question": "被车撞了以后留下的后遗症就是头晕，撞的部位是头部，这个怎么办呢",
+      "latency_ms": 4263,
+      "hit_rank": 2,
+      "top_score": 0.5847,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 56535711",
+        "cMedQA 问答 51211771",
+        "cMedQA 问答 59727511",
+        "cMedQA 问答 39797561",
+        "cMedQA 问答 26515603"
+      ]
+    },
+    {
+      "id": "cmedqa_0071",
+      "question": "脚掌内热到晚上，就会感到脚掌热，心里烦躁不想入睡",
+      "latency_ms": 4159,
+      "hit_rank": 3,
+      "top_score": 0.6483,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 19965202",
+        "cMedQA 问答 10793360",
+        "cMedQA 问答 62517081",
+        "cMedQA 问答 7615396",
+        "cMedQA 问答 42664572"
+      ]
+    },
+    {
+      "id": "cmedqa_0072",
+      "question": "患者男74岁有高血压看大夫是大夫说会有高血压引起的心脏防颤不用害怕无怎么样可以预防心脏防颤呢？如果犯病了的话吃什么药会缓解心脏防颤？",
+      "latency_ms": 4302,
+      "hit_rank": 1,
+      "top_score": 0.6074,
+      "citation_hit": true,
+      "top_context_titles": [
+        "身体系统主题化健康问答扩容语料 条目 261：老人血压偏高平时怎么管理？",
+        "cMedQA 问答 63616381",
+        "cMedQA 问答 21982316",
+        "心血管 049：高血压平时没感觉，还需要管吗？",
+        "cMedQA 问答 54248736"
+      ]
+    },
+    {
+      "id": "cmedqa_0073",
+      "question": "我的胸部和背部痛有一年啦，总是感觉没劲发困，曾经治疗情况和效果：检查说右肺纤维钙化请问这是什么病呀，严重吗",
+      "latency_ms": 4226,
+      "hit_rank": 0,
+      "top_score": 0.6158,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 7824714",
+        "cMedQA 问答 68834782",
+        "cMedQA 问答 22256127",
+        "cMedQA 问答 21874895",
+        "cMedQA 问答 38275707"
+      ]
+    },
+    {
+      "id": "cmedqa_0074",
+      "question": "夏天屁股上为什么起疙瘩夏天一到屁股上就有疙瘩，不痒，但是一挠就肿大了，还有点儿疼",
+      "latency_ms": 4270,
+      "hit_rank": 1,
+      "top_score": 0.7916,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 23451008",
+        "cMedQA 问答 19628634",
+        "cMedQA 问答 32086046",
+        "cMedQA 问答 17008536",
+        "cMedQA 问答 58788186"
+      ]
+    },
+    {
+      "id": "cmedqa_0075",
+      "question": "起水痘发高烧该怎么办？",
+      "latency_ms": 4121,
+      "hit_rank": 2,
+      "top_score": 0.5374,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 29750582",
+        "cMedQA 问答 9284601",
+        "cMedQA 问答 64845573",
+        "cMedQA 问答 9173898",
+        "cMedQA 问答 10190053"
+      ]
+    },
+    {
+      "id": "cmedqa_0076",
+      "question": "云南白药雾剂喷多了造成的手脚麻木疼痛怎么治半年多前，一名七十多岁老人，男，因脚底发硬原因去看医生，开了云南白药喷雾剂白和红各一瓶，喷的量大，喷了三、四天，但没喷完，发现手脚麻木了停用了，结果还是麻木，手不能做如扣纽扣、拿筷子等动作，脚也要拄拐杖才能走。遇热比如躺在被子里，手脚发热后就会红肿，涨疼的受不了，现在发展到大腿臀部酸胀，不能走路了。期间用过弥可保等药都没有，看了很多医生说是这病没法治。请问各位大神医生有方法治吗？",
+      "latency_ms": 4741,
+      "hit_rank": 0,
+      "top_score": 0.6142,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 42128761",
+        "cMedQA 问答 33396178",
+        "cMedQA 问答 48723955",
+        "cMedQA 问答 11092663",
+        "cMedQA 问答 11186298"
+      ]
+    },
+    {
+      "id": "cmedqa_0077",
+      "question": "四肢疼痛游走性疼痛，晚上睡着疼醒，不是关节痛，自己感觉是筋骨痛。到医院作了查尿，血，骨质疏松，脑血管，颈椎等检查。检查结果是骨质疏松，脑血管痉挛，颈椎变形。病情描述（发病时间、主要症状等）：从12年11月中旬开始，开始时右上肢疼痛，后来到13年1月是四肢游走性疼痛。曾经治疗情况和效果：补钙和脑血管、颈椎治疗，一直到13年1月开始四肢游走性疼痛帮助分析原因和建议后期该作什么检查和如何治疗",
+      "latency_ms": 4596,
+      "hit_rank": 0,
+      "top_score": 0.6555,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 56664185",
+        "cMedQA 问答 55856991",
+        "cMedQA 问答 11092663",
+        "cMedQA 问答 21430646",
+        "cMedQA 问答 39520891"
+      ]
+    },
+    {
+      "id": "cmedqa_0078",
+      "question": "全部症状：我想问下我妈妈年前车祸摔到了头部，当时医生检查双侧颅骨骨折，脑部有淤血，血从耳朵出，现在就是记忆力不好，出血的那个耳朵听不见还一直翁翁响，现在在服用脑复康，我想请教下专家，现在应该服用点什么药嫩能够恢复快点，我急需答案先谢谢了！发病时间及原因：治疗情况：",
+      "latency_ms": 4530,
+      "hit_rank": 0,
+      "top_score": 0.5644,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 6441968",
+        "cMedQA 问答 10306342",
+        "cMedQA 问答 8978821",
+        "cMedQA 问答 5550411",
+        "cMedQA 问答 51211771"
+      ]
+    },
+    {
+      "id": "cmedqa_0079",
+      "question": "手出汗原因怎么办手经常出汗不论冬夏，怎么回事",
+      "latency_ms": 4159,
+      "hit_rank": 0,
+      "top_score": 0.6244,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 26081004",
+        "cMedQA 问答 61546596",
+        "cMedQA 问答 48298220",
+        "cMedQA 问答 62517081",
+        "cMedQA 问答 10793360"
+      ]
+    },
+    {
+      "id": "cmedqa_0080",
+      "question": "了，一直都不怎么爱吃，一天最多才吃200毫升。是喂养的，不是母乳。还总是哭，怎么办，很着急！！！曾经治疗情况和效果：去过医院，说孩子太小，吃了点药。请问宝宝是什么症状？给宝宝吃什么？",
+      "latency_ms": 4442,
+      "hit_rank": 1,
+      "top_score": 0.8518,
+      "citation_hit": true,
+      "top_context_titles": [
+        "主题化健康人群风险 条目 266：宝宝积食不爱吃饭怎么办？",
+        "cMedQA 问答 59049554",
+        "主题化健康人群风险 条目 117：孩子不爱吃饭会不会缺锌",
+        "主题化健康人群风险 条目 118：孩子不爱吃饭会不会缺锌怎么办",
+        "cMedQA 问答 36305893"
+      ]
+    },
+    {
+      "id": "cmedqa_0081",
+      "question": "逍遥散不适合什么人群服用",
+      "latency_ms": 4139,
+      "hit_rank": 0,
+      "top_score": 0.4576,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 4488514",
+        "cMedQA 问答 58250170",
+        "cMedQA 问答 66926200",
+        "cMedQA 问答 58824200",
+        "cMedQA 问答 47034968"
+      ]
+    },
+    {
+      "id": "cmedqa_0082",
+      "question": "抵抗力差了，是不是会容易感冒？",
+      "latency_ms": 4059,
+      "hit_rank": 0,
+      "top_score": 0.7446,
+      "citation_hit": false,
+      "top_context_titles": [
+        "呼吸免疫 068：总觉得容易感冒，是不是体质差？",
+        "cMedQA 问答 45622153",
+        "cMedQA 问答 44705541",
+        "cMedQA 问答 10422527",
+        "cMedQA 问答 5826484"
+      ]
+    },
+    {
+      "id": "cmedqa_0083",
+      "question": "宫颈糜烂影响怀孕吗百带多有阴道炎怎么治阴道炎有影响怀孕吗",
+      "latency_ms": 4159,
+      "hit_rank": 1,
+      "top_score": 0.6032,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 51521568",
+        "cMedQA 问答 61797353",
+        "cMedQA 问答 5379214",
+        "cMedQA 问答 48450699",
+        "cMedQA 问答 38386942"
+      ]
+    },
+    {
+      "id": "cmedqa_0084",
+      "question": "深圳最好的除皱医院是哪个?脸上有很多皱纹该如何去除呢？该如何让皮肤变得紧致？",
+      "latency_ms": 4144,
+      "hit_rank": 0,
+      "top_score": 0.282,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 54617055",
+        "cMedQA 问答 20713100",
+        "皮肤过敏 130：脸上突然爆发过敏，先停哪些东西比较重要？",
+        "cMedQA 问答 52978985",
+        "cMedQA 问答 31842884"
+      ]
+    },
+    {
+      "id": "cmedqa_0085",
+      "question": "希望有高人相助得到真心相助脸上坑坑洼洼怎么修复是小时候打架被指甲弄的怎么办、可不可以用去痘印的方法",
+      "latency_ms": 4345,
+      "hit_rank": 0,
+      "top_score": 0.4895,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 52978985",
+        "cMedQA 问答 35587037",
+        "cMedQA 问答 20713100",
+        "cMedQA 问答 54617055",
+        "cMedQA 问答 13572095"
+      ]
+    },
+    {
+      "id": "cmedqa_0086",
+      "question": "包皮翻皮龟头就疼17岁包皮过长一直没怎么在意最近查了查现在试着翻皮可是翻不下去没办法把整个龟头露出来最多只能露出三分之一再往下翻龟头就疼了感觉那里的肉很嫩不能碰平时很注意卫生每次洗澡都好好清洗要切包皮嘛感觉龟头被包着不会痛包皮没了会很痛的..",
+      "latency_ms": 4366,
+      "hit_rank": 1,
+      "top_score": 0.4772,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 38054335",
+        "cMedQA 问答 26103788",
+        "cMedQA 问答 27571487",
+        "主题化健康人群风险 条目 082：包皮过长一定要手术吗怎么办",
+        "cMedQA 问答 49500364"
+      ]
+    },
+    {
+      "id": "cmedqa_0087",
+      "question": "从胎儿开始入骨盆到出生大概需要多久我现在怀孕37周了、医生说胎儿还没有完全入骨盆、请问这样的情况下、半个月内、宝宝会出生吗",
+      "latency_ms": 5484,
+      "hit_rank": 0,
+      "top_score": 0.765,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 59038045",
+        "cMedQA 问答 54180376",
+        "cMedQA 问答 51942535",
+        "cMedQA 问答 66660798",
+        "cMedQA 问答 55267626"
+      ]
+    },
+    {
+      "id": "cmedqa_0088",
+      "question": "宝宝两个多月，脸上和耳朵上起好多干皮怎么办？摸了宝宝霜没什么用，头上还有舅舅屎怎么去掉？",
+      "latency_ms": 4308,
+      "hit_rank": 1,
+      "top_score": 0.4983,
+      "citation_hit": true,
+      "top_context_titles": [
+        "主题化健康人群风险 条目 113：宝宝湿疹总反复怎么办",
+        "主题化健康人群风险 条目 115：宝宝湿疹总反复怎么办正常吗",
+        "主题化健康人群风险 条目 116：宝宝湿疹总反复怎么办需要去医院吗",
+        "cMedQA 问答 3460324",
+        "cMedQA 问答 4950142"
+      ]
+    },
+    {
+      "id": "cmedqa_0089",
+      "question": "我的孩子能要吗，要了对孩子有什么影响吗？，我上个月3号的月经，，我在上个月14号吃了避孕药韵婷，然后过了3天我和老公在一起没有采取措施，过了5天我就买了验孕棒，验孕有了。孩子能要买吗？",
+      "latency_ms": 4329,
+      "hit_rank": 0,
+      "top_score": 0.5808,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 47202117",
+        "cMedQA 问答 66338806",
+        "cMedQA 问答 33824679",
+        "cMedQA 问答 11172301",
+        "cMedQA 问答 40087108"
+      ]
+    },
+    {
+      "id": "cmedqa_0090",
+      "question": "我最近几天都有左侧肋骨下方难受并伴有左侧牙痛，牙疼不严重，我怀疑是心脏有问题，有时气短，心脏周围有时阵痛，我平时胃就不好，",
+      "latency_ms": 4216,
+      "hit_rank": 0,
+      "top_score": 0.6321,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 59544735",
+        "cMedQA 问答 31366190",
+        "cMedQA 问答 6605593",
+        "心血管 032：胸痛时按压胸口也疼，还会是心脏问题吗？",
+        "心血管 001：总觉得胸闷，是不是心脏有问题？"
+      ]
+    },
+    {
+      "id": "cmedqa_0091",
+      "question": "你好请问药物流产在怀孕检查能检查出来吗三年前药物流产因为才两个月所以很干净没有清宫身体早都已经好了",
+      "latency_ms": 4163,
+      "hit_rank": 1,
+      "top_score": 0.5699,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 37033961",
+        "cMedQA 问答 33165310",
+        "cMedQA 问答 37042162",
+        "cMedQA 问答 52080319",
+        "cMedQA 问答 21140424"
+      ]
+    },
+    {
+      "id": "cmedqa_0092",
+      "question": "你好我怀孕八个半月了今天去检查医生说脐带比较紧胎动多这个严重吗？",
+      "latency_ms": 4139,
+      "hit_rank": 0,
+      "top_score": 0.5304,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 48266863",
+        "cMedQA 问答 9924916",
+        "cMedQA 问答 52311981",
+        "cMedQA 问答 4287677",
+        "cMedQA 问答 63961998"
+      ]
+    },
+    {
+      "id": "cmedqa_0093",
+      "question": "听说经期洗头会导致癌症，是真的吗？咨询一下就是",
+      "latency_ms": 4231,
+      "hit_rank": 0,
+      "top_score": 0.4218,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 31795310",
+        "cMedQA 问答 10700456",
+        "cMedQA 问答 6425460",
+        "cMedQA 问答 24019132",
+        "cMedQA 问答 24663961"
+      ]
+    },
+    {
+      "id": "cmedqa_0094",
+      "question": "怀孕三十五周羊水多怀孕三十五周。羊水多怎么办观察",
+      "latency_ms": 4182,
+      "hit_rank": 0,
+      "top_score": 0.6057,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 54781676",
+        "cMedQA 问答 66660798",
+        "cMedQA 问答 53828525",
+        "cMedQA 问答 25085017",
+        "cMedQA 问答 65055922"
+      ]
+    },
+    {
+      "id": "cmedqa_0095",
+      "question": "二十来年睡眠不好，头沉，近二年心脏不好，气短，提不上来，一说话感觉老进凉风，右边肚子特别难受，特别涨，脾胃都不太好，头后脑勺一碰枕头就感觉凉凉的，浑身无力，眼睛总是觉得磨的慌，干，大便干，肛门下垂。每天吃完早上饭都要解二三回小便，才行，每天浑身紧张放松不下了",
+      "latency_ms": 4613,
+      "hit_rank": 0,
+      "top_score": 0.639,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 7615396",
+        "cMedQA 问答 32129345",
+        "生活方式健康问答 条目 003：入睡困难已经有一阵子了，闭着眼两三个小时都睡不着怎么办？",
+        "cMedQA 问答 66750278",
+        "cMedQA 问答 42664572"
+      ]
+    },
+    {
+      "id": "cmedqa_0096",
+      "question": "3岁小孩鼻子折骨能否愈合",
+      "latency_ms": 4286,
+      "hit_rank": 5,
+      "top_score": 0.6483,
+      "citation_hit": true,
+      "top_context_titles": [
+        "cMedQA 问答 4410988",
+        "cMedQA 问答 10380197",
+        "cMedQA 问答 21292700",
+        "cMedQA 问答 67121965",
+        "cMedQA 问答 51523922"
+      ]
+    },
+    {
+      "id": "cmedqa_0097",
+      "question": "我准备怀孕，去中医哪里开的中药调理身体的那种，他说边吃药可以怀孕，我想问有没有副作用？",
+      "latency_ms": 5370,
+      "hit_rank": 0,
+      "top_score": 0.6578,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 47034968",
+        "cMedQA 问答 4488514",
+        "cMedQA 问答 63900539",
+        "cMedQA 问答 4010539",
+        "cMedQA 问答 46445202"
+      ]
+    },
+    {
+      "id": "cmedqa_0098",
+      "question": "哺乳期用红霉素软膏会不会对宝宝有什么影响？乳头破了，擦了些。请帮帮我好吗",
+      "latency_ms": 4646,
+      "hit_rank": 0,
+      "top_score": 0.4114,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 58554373",
+        "cMedQA 问答 34612239",
+        "cMedQA 问答 61371614",
+        "cMedQA 问答 14520475",
+        "cMedQA 问答 19911117"
+      ]
+    },
+    {
+      "id": "cmedqa_0099",
+      "question": "你好，我是甲亢曾经治疗情况和效果：吃赛治过敏，肝损伤请问到你们医院，怎么治疗",
+      "latency_ms": 4967,
+      "hit_rank": 0,
+      "top_score": 0.7776,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 38350656",
+        "cMedQA 问答 3130549",
+        "cMedQA 问答 12843301",
+        "cMedQA 问答 5896916",
+        "cMedQA 问答 27581434"
+      ]
+    },
+    {
+      "id": "cmedqa_0100",
+      "question": "有时午睡手麻和左脚麻，晚上也会。全身无力",
+      "latency_ms": 5403,
+      "hit_rank": 0,
+      "top_score": 0.652,
+      "citation_hit": false,
+      "top_context_titles": [
+        "cMedQA 问答 28919771",
+        "身体系统主题化健康问答扩容语料 条目 206：腿麻和手麻同时有，会不会很严重？",
+        "身体系统主题化健康问答扩容语料 条目 172：手麻脚麻都会不会是神经问题？",
+        "身体系统主题化健康问答扩容语料 条目 190：手臂发麻和睡觉压到有关系吗？",
+        "cMedQA 问答 69345138"
+      ]
+    }
+  ]
+}

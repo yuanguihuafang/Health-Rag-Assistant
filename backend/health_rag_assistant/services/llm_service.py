@@ -44,11 +44,13 @@ class HealthLLMService:
         runtime_config = self.get_runtime_config()
         self.default_model_name = getattr(
             settings,
-            "HEALTH_RAG_MODEL_NAME",
+            "LLM_MODEL",
             getattr(settings, "AI_MODEL_NAME", "deepseek-r1:1.5b"),
         )
         default_base_url = getattr(
-            settings, "OLLAMA_BASE_URL", "http://localhost:11434"
+            settings,
+            "LLM_BASE_URL",
+            "http://localhost:11434",
         )
         runtime_base_url = self._normalize_base_url(runtime_config.get("base_url"))
         runtime_api_key = (runtime_config.get("api_key") or "").strip()
@@ -62,13 +64,19 @@ class HealthLLMService:
         self.api_key = (
             api_key
             or runtime_api_key
-            or getattr(settings, "HEALTH_RAG_API_KEY", "")
+            or getattr(settings, "LLM_API_KEY", "")
             or ""
         ).strip()
         self.model_name = (
             model_name or runtime_model_name or self.default_model_name or ""
         ).strip()
-        self.timeout = int(getattr(settings, "HEALTH_RAG_LLM_TIMEOUT", 60))
+        self.timeout = int(
+            getattr(
+                settings,
+                "LLM_TIMEOUT",
+                60,
+            )
+        )
         self.client = OllamaClient(base_url=self.base_url)
 
     @classmethod

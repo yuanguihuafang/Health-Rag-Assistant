@@ -72,4 +72,19 @@ urlpatterns = [
         views.model_restart,
         name="health_rag_model_restart",
     ),
+    path(
+        "retrieval/debug/",
+        views.retrieval_debug,
+        name="health_rag_retrieval_debug",
+    ),
+    path(
+        "eval/ragas/run/",
+        views.ragas_eval_run,
+        name="health_rag_eval_ragas_run",
+    ),
+    path(
+        "eval/retrieval/run/",
+        views.retrieval_eval_run,
+        name="health_rag_eval_retrieval_run",
+    ),
 ]

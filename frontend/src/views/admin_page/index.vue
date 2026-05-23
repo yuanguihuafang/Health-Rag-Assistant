@@ -42,6 +42,7 @@
                 <SettingOutlined v-else-if="menuItem.icon === 'SettingOutlined'" />
                 <FileSearchOutlined v-else-if="menuItem.icon === 'FileSearchOutlined'" />
                 <DatabaseOutlined v-else-if="menuItem.icon === 'DatabaseOutlined'" />
+                <SearchOutlined v-else-if="menuItem.icon === 'SearchOutlined'" />
                 <RobotOutlined v-else-if="menuItem.icon === 'RobotOutlined'" />
                 <WarningOutlined v-else-if="menuItem.icon === 'WarningOutlined'" />
                 <BellOutlined v-else-if="menuItem.icon === 'BellOutlined'" />
@@ -61,6 +62,7 @@
                   <SettingOutlined v-else-if="childItem.icon === 'SettingOutlined'" />
                   <FileSearchOutlined v-else-if="childItem.icon === 'FileSearchOutlined'" />
                   <DatabaseOutlined v-else-if="childItem.icon === 'DatabaseOutlined'" />
+                  <SearchOutlined v-else-if="childItem.icon === 'SearchOutlined'" />
                   <RobotOutlined v-else-if="childItem.icon === 'RobotOutlined'" />
                   <WarningOutlined v-else-if="childItem.icon === 'WarningOutlined'" />
                   <BellOutlined v-else-if="childItem.icon === 'BellOutlined'" />
@@ -79,6 +81,7 @@
                 <SettingOutlined v-else-if="menuItem.icon === 'SettingOutlined'" />
                 <FileSearchOutlined v-else-if="menuItem.icon === 'FileSearchOutlined'" />
                 <DatabaseOutlined v-else-if="menuItem.icon === 'DatabaseOutlined'" />
+                <SearchOutlined v-else-if="menuItem.icon === 'SearchOutlined'" />
                 <RobotOutlined v-else-if="menuItem.icon === 'RobotOutlined'" />
                 <WarningOutlined v-else-if="menuItem.icon === 'WarningOutlined'" />
                 <BellOutlined v-else-if="menuItem.icon === 'BellOutlined'" />
@@ -455,6 +458,7 @@ import {
   DatabaseOutlined,
   EditOutlined,
   FileSearchOutlined,
+  SearchOutlined,
   RobotOutlined,
   WarningOutlined,
   HistoryOutlined,

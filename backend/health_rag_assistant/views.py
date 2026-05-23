@@ -8,9 +8,14 @@ API 视图层
 """
 import json
 import time
+from io import StringIO
+from pathlib import Path
+import re
 
+from django.conf import settings
+from django.core.management import call_command
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.dateparse import parse_date, parse_datetime
@@ -37,25 +42,31 @@ from .serializers import (
     HealthKnowledgeReindexSerializer,
     HealthModelControlSerializer,
     HealthModelSwitchSerializer,
+    HealthRetrievalDebugSerializer,
+    HealthRagasEvalRunSerializer,
+    HealthRetrievalEvalRunSerializer,
     HealthQASessionCreateSerializer,
     HealthQASessionDeleteSerializer,
     HealthRecommendSerializer,
 )
+from .services.embedding_service import EmbeddingService
 from .services.asr_service import ASRServiceError, transcribe_file
 from .services.kb_service import (
     create_document_and_index,
+    create_structured_markdown_documents_and_index,
     rebuild_index_for_documents,
-    sync_user_faiss_index,
+    sync_vector_index,
     update_document_and_index,
 )
 from .services.knowledge_card_service import build_knowledge_card
 from .services.llm_service import HealthLLMService
 from .services.pdf_export_service import build_qa_records_pdf
-from .services.rag_service import ask_with_rag
+from .services.rag_service import ask_with_rag, retrieve_hybrid
 from .services.recommend_service import build_personal_recommendations
-from .services.retriever_service import faiss_runtime_status
+from .services.vector_store import QdrantVectorStore
 
 ADMIN_ROLE_CODES = {"admin", "system_admin", "super_admin"}
+ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;]*m")
 
 
 def _get_request_data(request):
@@ -71,6 +82,10 @@ def _get_request_data(request):
             data = request.GET.dict()
         return data
     return request.GET.dict()
+
+
+def _strip_ansi(text: str) -> str:
+    return ANSI_ESCAPE_RE.sub("", str(text or ""))
 
 
 def _format_asr_error(exc):
@@ -186,7 +201,12 @@ def kb_document_list(request):
         q &= Q(title__icontains=query)
 
     order_by = "id" if not query and not document_id else "-updated_at"
-    documents = HealthKnowledgeDocument.objects.filter(q).order_by(order_by)
+    documents = (
+        HealthKnowledgeDocument.objects.filter(q)
+        .annotate(chunk_count_annotated=Count("chunks"))
+        .defer("content")
+        .order_by(order_by)
+    )
     paginator = Paginator(documents, page_size)
     page_obj = paginator.get_page(page)
 
@@ -236,20 +256,50 @@ def kb_document_create(request):
         source_path = uploaded_file.name
 
     try:
-        document, created_chunks = create_document_and_index(
-            user_id=request.user_id,
-            title=validated.get("title", ""),
-            source_type=source_type,
-            source_path=source_path,
-            content=validated.get("content", ""),
-            metadata=validated.get("metadata", {}),
-            uploaded_file=uploaded_file,
-            chunk_size=validated.get("chunk_size", 500),
-            chunk_overlap=validated.get("chunk_overlap", 80),
-        )
-        payload = HealthKnowledgeDocumentSerializer(document).data
-        payload["created_chunk_count"] = created_chunks
-        return HertzResponse.success(data=payload, message="知识文档创建成功")
+        split_mode = validated.get("split_mode", "fixed")
+        if split_mode == "markdown_entry":
+            (
+                document,
+                created_documents,
+                created_chunks,
+                skipped_existing,
+            ) = create_structured_markdown_documents_and_index(
+                user_id=request.user_id,
+                title=validated.get("title", ""),
+                source_path=source_path,
+                content=validated.get("content", ""),
+                metadata=validated.get("metadata", {}),
+                uploaded_file=uploaded_file,
+            )
+            payload = HealthKnowledgeDocumentSerializer(document).data
+            payload["split_mode"] = split_mode
+            payload["created_document_count"] = created_documents
+            payload["created_chunk_count"] = created_chunks
+            payload["skipped_existing_count"] = skipped_existing
+            return HertzResponse.success(
+                data=payload,
+                message=(
+                    f"结构化 Markdown 导入成功：新增 {created_documents} 个条目，"
+                    f"{created_chunks} 个切片，跳过重复 {skipped_existing} 个"
+                ),
+            )
+        else:
+            document, created_chunks = create_document_and_index(
+                user_id=request.user_id,
+                title=validated.get("title", ""),
+                source_type=source_type,
+                source_path=source_path,
+                content=validated.get("content", ""),
+                metadata=validated.get("metadata", {}),
+                uploaded_file=uploaded_file,
+                chunk_size=validated.get("chunk_size", 500),
+                chunk_overlap=validated.get("chunk_overlap", 80),
+            )
+            payload = HealthKnowledgeDocumentSerializer(document).data
+            payload["split_mode"] = split_mode
+            payload["created_document_count"] = 1
+            payload["created_chunk_count"] = created_chunks
+            return HertzResponse.success(data=payload, message="知识文档创建成功")
     except Exception as exc:
         return HertzResponse.error(message=f"知识文档创建失败: {exc}")
 
@@ -333,12 +383,14 @@ def kb_document_delete(request):
         updated_at=timezone.now(),
     )
     chunk_deleted = 0
+    deleted_chunk_ids = []
     for doc in docs:
+        deleted_chunk_ids.extend(list(doc.chunks.values_list("id", flat=True)))
         deleted_count, _ = doc.chunks.all().delete()
         chunk_deleted += deleted_count
 
-    # 同步更新全局共享 FAISS 索引
-    sync_user_faiss_index(request.user_id)
+    # 增量删除 Qdrant 中对应的 points，避免批量删除时重建整库。
+    QdrantVectorStore().delete_chunks(deleted_chunk_ids)
 
     return HertzResponse.success(
         data={"document_count": document_count, "chunk_deleted": chunk_deleted},
@@ -373,13 +425,13 @@ def kb_reindex(request):
     docs = list(docs_qs)
     if not docs:
         # 没有文档时返回 200，避免前端按 HTTP 错误处理
-        faiss_ok, faiss_message = sync_user_faiss_index(request.user_id)
+        vector_ok, vector_message = sync_vector_index(request.user_id)
         return HertzResponse.success(
             data={
                 "document_count": 0,
                 "chunk_count": 0,
-                "faiss_synced": faiss_ok,
-                "faiss_message": faiss_message,
+                "vector_synced": vector_ok,
+                "vector_message": vector_message,
             },
             message="没有可重建索引的文档，请先新增知识文档",
         )
@@ -552,7 +604,7 @@ def chat_ask(request):
         return HertzResponse.validation_error(errors=serializer.errors)
 
     question = serializer.validated_data["question"]
-    k = serializer.validated_data.get("k", 5)
+    k = serializer.validated_data.get("k", int(getattr(settings, "RAG_TOP_K", 5)))
     session_id = serializer.validated_data.get("session_id")
     ask_mode = serializer.validated_data.get("ask_mode", "text")
     llm_config = {}
@@ -869,7 +921,8 @@ def recommend_list(request):
 def model_status(_request):
     service = HealthLLMService()
     status = service.get_model_status()
-    status["retrieval"] = faiss_runtime_status(user_id=0)
+    status["embedding"] = EmbeddingService().status()
+    status["vector_store"] = QdrantVectorStore().status()
     return HertzResponse.success(data=status)
 
 
@@ -896,7 +949,8 @@ def model_status_custom(request):
         model_name=model_name,
     )
     status["custom"] = True
-    status["retrieval"] = faiss_runtime_status(user_id=0)
+    status["embedding"] = EmbeddingService().status()
+    status["vector_store"] = QdrantVectorStore().status()
     return HertzResponse.success(data=status, message="自定义模型状态检测完成")
 
 
@@ -928,7 +982,8 @@ def model_switch(request):
             api_key=(validated.get("api_key") or "").strip() or None,
         )
         status = result.get("status", {}) or {}
-        status["retrieval"] = faiss_runtime_status(user_id=0)
+        status["embedding"] = EmbeddingService().status()
+        status["vector_store"] = QdrantVectorStore().status()
         result["status"] = status
         return HertzResponse.success(data=result, message="模型切换成功")
     except Exception as exc:
@@ -965,8 +1020,152 @@ def model_restart(request):
             warmup=bool(validated.get("warmup", True)),
         )
         status = result.get("status", {}) or {}
-        status["retrieval"] = faiss_runtime_status(user_id=0)
+        status["embedding"] = EmbeddingService().status()
+        status["vector_store"] = QdrantVectorStore().status()
         result["status"] = status
         return HertzResponse.success(data=result, message="模型重启成功")
     except Exception as exc:
         return HertzResponse.error(message=f"模型重启失败: {exc}")
+
+
+@api_view(["POST"])
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def retrieval_debug(request):
+    serializer = HealthRetrievalDebugSerializer(data=_get_request_data(request))
+    if not serializer.is_valid():
+        return HertzResponse.validation_error(errors=serializer.errors)
+
+    question = serializer.validated_data["question"]
+    top_k = serializer.validated_data.get("top_k", int(getattr(settings, "RAG_TOP_K", 5)))
+    started = time.perf_counter()
+    try:
+        retrieval = retrieve_hybrid(
+            question=question,
+            conversation_history=None,
+            vector_k=max(top_k, int(getattr(settings, "RAG_VECTOR_TOP_K", 30))),
+            sparse_k=max(top_k, int(getattr(settings, "RAG_VECTOR_TOP_K", 30))),
+            fused_k=max(top_k, 20),
+        )
+    except Exception as exc:
+        return HertzResponse.error(message=f"检索调试失败: {exc}")
+
+    return HertzResponse.success(
+        data={
+            "question": question,
+            "rewritten_query": retrieval.get("retrieval_query", ""),
+            "top_k": top_k,
+            "query_embedding_dim": retrieval.get("query_embedding_dim", 0),
+            "vector_hits": retrieval.get("vector_hits", [])[:top_k],
+            "sparse_hits": retrieval.get("sparse_hits", [])[:top_k],
+            "rrf_hits": retrieval.get("rrf_hits", [])[:top_k],
+            "rerank_hits": retrieval.get("rerank_hits", [])[:top_k],
+            "final_hits": retrieval.get("final_hits", [])[:top_k],
+            "final_contexts": retrieval.get("contexts", []),
+            "rerank_error": retrieval.get("rerank_error", ""),
+            "latency_ms": int((time.perf_counter() - started) * 1000),
+        },
+        message="检索调试完成",
+    )
+
+
+@api_view(["POST"])
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def ragas_eval_run(request):
+    deny_response = _require_kb_admin(request)
+    if deny_response:
+        return deny_response
+
+    serializer = HealthRagasEvalRunSerializer(data=_get_request_data(request))
+    if not serializer.is_valid():
+        return HertzResponse.validation_error(errors=serializer.errors)
+
+    payload = serializer.validated_data
+    started = time.perf_counter()
+    out = StringIO()
+    err = StringIO()
+    try:
+        call_command(
+            "evaluate_health_rag_ragas",
+            input=(payload.get("input") or "health_eval_questions_cmedqa_v1.jsonl"),
+            top_k=int(payload.get("top_k") or 5),
+            limit=int(payload.get("limit") or 20),
+            user_id=int(getattr(request, "user_id", 1) or 1),
+            stdout=out,
+            stderr=err,
+        )
+    except Exception as exc:
+        stderr_text = err.getvalue().strip()
+        detail = f"；stderr: {stderr_text}" if stderr_text else ""
+        return HertzResponse.error(message=f"RAGAS 评估启动失败: {exc}{detail}")
+
+    elapsed_ms = int((time.perf_counter() - started) * 1000)
+    base_dir = Path(settings.BASE_DIR) / "health_rag_assistant" / "datasets" / "eval" / "results"
+    latest_result = ""
+    if base_dir.exists():
+        files = sorted(base_dir.glob("eval_ragas_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        if files:
+            latest_result = str(files[0])
+
+    return HertzResponse.success(
+        data={
+            "elapsed_ms": elapsed_ms,
+            "latest_result_file": latest_result,
+            "stdout": _strip_ansi(out.getvalue()).strip(),
+            "stderr": _strip_ansi(err.getvalue()).strip(),
+        },
+        message="RAGAS 评估已完成",
+    )
+
+
+@api_view(["POST"])
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def retrieval_eval_run(request):
+    deny_response = _require_kb_admin(request)
+    if deny_response:
+        return deny_response
+
+    serializer = HealthRetrievalEvalRunSerializer(data=_get_request_data(request))
+    if not serializer.is_valid():
+        return HertzResponse.validation_error(errors=serializer.errors)
+
+    payload = serializer.validated_data
+    started = time.perf_counter()
+    out = StringIO()
+    err = StringIO()
+    try:
+        call_command(
+            "evaluate_health_rag",
+            input=(payload.get("input") or "health_eval_questions_cmedqa_v1.jsonl"),
+            top_k=int(payload.get("top_k") or 5),
+            limit=int(payload.get("limit") or 20),
+            stdout=out,
+            stderr=err,
+        )
+    except Exception as exc:
+        stderr_text = err.getvalue().strip()
+        detail = f"；stderr: {stderr_text}" if stderr_text else ""
+        return HertzResponse.error(message=f"检索评估启动失败: {exc}{detail}")
+
+    elapsed_ms = int((time.perf_counter() - started) * 1000)
+    base_dir = Path(settings.BASE_DIR) / "health_rag_assistant" / "datasets" / "eval" / "results"
+    latest_result = ""
+    if base_dir.exists():
+        files = sorted(base_dir.glob("eval_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        if files:
+            latest_result = str(files[0])
+
+    return HertzResponse.success(
+        data={
+            "elapsed_ms": elapsed_ms,
+            "latest_result_file": latest_result,
+            "stdout": _strip_ansi(out.getvalue()).strip(),
+            "stderr": _strip_ansi(err.getvalue()).strip(),
+        },
+        message="检索评估已完成",
+    )

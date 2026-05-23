@@ -1,18 +1,18 @@
 """
 个性化推荐服务
 - 分析用户近 90 天问答记录，按 13 个健康主题统计兴趣得分
-- 用主题关键词作为检索 query，返回推荐知识片段
+- 用主题关键词做向量检索，返回推荐知识片段
 - 历史不足时返回近期更新的通用文档兜底
 """
 import random
 from datetime import timedelta
 from typing import Dict, Iterable, List
 
-from django.conf import settings
 from django.utils import timezone
 
 from ..models import HealthKnowledgeChunk, HealthKnowledgeDocument, HealthQARecord
-from .retriever_service import retrieve_top_k
+from .embedding_service import EmbeddingService
+from .vector_store import QdrantVectorStore
 
 TOPIC_KEYWORDS: Dict[str, List[str]] = {
     "睡眠调理": ["失眠", "睡眠", "熬夜", "多梦", "早醒", "入睡"],
@@ -104,33 +104,47 @@ def _recommend_from_topics(
     k_per_topic: int,
     randomize: bool = False,
 ) -> List[dict]:
-    max_chunks = max(
-        int(limit) * max(int(k_per_topic), 1) * 4,
-        int(getattr(settings, "HEALTH_RAG_RECOMMEND_MAX_CHUNKS", 600)),
-    )
-    chunks_qs = (
-        HealthKnowledgeChunk.objects.filter(document__status="active")
-        .select_related("document")
-        .order_by("-document__updated_at", "document_id", "chunk_index")[:max_chunks]
-    )
-    if not chunks_qs.exists():
+    if not HealthKnowledgeChunk.objects.filter(document__status="active").exists():
         return []
 
+    embedder = EmbeddingService()
+    vector_store = QdrantVectorStore()
     recs: List[dict] = []
     seen_chunk_ids = set()
     candidate_k = max(int(k_per_topic), int(limit) * 2) if randomize else int(k_per_topic)
+
     for topic_item in topics:
         query = _build_topic_query(topic_item)
         if not query:
             continue
 
-        top_scored = retrieve_top_k(
-            question=query,
-            chunks=chunks_qs,
-            k=candidate_k,
-            user_id=0,
-        )
-        for score, chunk in top_scored:
+        query_vector = embedder.embed_query(query)
+        hits = vector_store.search(vector=query_vector, limit=candidate_k)
+        chunk_ids = []
+        score_map = {}
+        for hit in hits:
+            payload = getattr(hit, "payload", {}) or {}
+            chunk_id = payload.get("chunk_id")
+            if not chunk_id:
+                continue
+            chunk_id = int(chunk_id)
+            chunk_ids.append(chunk_id)
+            score_map[chunk_id] = round(float(getattr(hit, "score", 0.0)), 4)
+
+        if not chunk_ids:
+            continue
+
+        chunk_map = {
+            chunk.id: chunk
+            for chunk in HealthKnowledgeChunk.objects.filter(
+                id__in=chunk_ids, document__status="active"
+            ).select_related("document")
+        }
+
+        for chunk_id in chunk_ids:
+            chunk = chunk_map.get(chunk_id)
+            if not chunk:
+                continue
             if chunk.id in seen_chunk_ids:
                 continue
             seen_chunk_ids.add(chunk.id)
@@ -143,7 +157,7 @@ def _recommend_from_topics(
                     "source_path": chunk.document.source_path,
                     "chunk_id": chunk.id,
                     "chunk_index": chunk.chunk_index,
-                    "score": round(float(score), 4),
+                    "score": score_map.get(chunk.id, 0.0),
                     "snippet": _clip_text(chunk.chunk_text, 220),
                     "document_updated_at": _format_dt(chunk.document.updated_at),
                 }
