@@ -1,0 +1,12 @@
+{
+  "input_file": "/app/health_rag_assistant/datasets/eval/health_eval_questions_cmedqa_v1.jsonl",
+  "created_at": "2026-05-24 15:30:28",
+  "metrics": {
+    "sample_count": 20,
+    "top_k": 8,
+    "faithfulness": 0.4167,
+    "answer_relevancy": NaN,
+    "context_precision": 0.4005,
+    "context_recall": 0.175
+  }
+}

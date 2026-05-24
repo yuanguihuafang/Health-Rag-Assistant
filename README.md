@@ -321,6 +321,11 @@ venv\Scripts\python manage.py evaluate_health_rag_ragas --input health_eval_ques
 ![检索调试1](image/检索调试1.png)
 ![检索调试2](image/检索调试2.png)
 
+### 服务器部署
+
+![云部署](image/云部署.png)
+![云部署2](image/云部署2.png)
+
 ### 启动日志
 
 ![终端启动日志](image/终端日志.png)

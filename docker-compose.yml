@@ -28,6 +28,7 @@ services:
     working_dir: /app
     volumes:
       - ./backend/data:/app/data
+      - ./backend/health_rag_assistant/datasets/eval/results:/app/health_rag_assistant/datasets/eval/results
     env_file:
       - ./backend/.env
     ports:
