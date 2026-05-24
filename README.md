@@ -138,6 +138,16 @@ RAG_TOP_K=5
 RAG_ENABLE_QUERY_EXPANSION=True
 ```
 
+如果使用 Docker Compose 部署，容器之间应使用服务名互联，建议改为：
+
+```env
+QDRANT_URL=http://qdrant:6333
+REDIS_URL=redis://redis:6379/0
+REDIS_HOST=redis
+REDIS_PORT=6379
+DB_NAME=/app/data/db.sqlite3
+```
+
 请不要把真实的 `backend/.env`、API Key、数据库文件提交到 GitHub。
 
 ### 3. 初始化依赖
@@ -239,6 +249,10 @@ venv\Scripts\python manage.py evaluate_health_rag_ragas --input health_eval_ques
 可把终端输出保存到：
 
 `backend/health_rag_assistant/datasets/eval/results/`
+
+在 Docker 环境中，接口返回的结果路径可能显示为容器内路径（例如 `/app/...`）。
+如需在宿主机长期保留评估结果，建议在 `docker-compose.yml` 为该目录增加 volume 映射，
+或使用 `docker cp` 从容器中拷贝到宿主机目录。
 
 示例留档文件：
 
