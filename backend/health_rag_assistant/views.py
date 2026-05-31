@@ -294,6 +294,7 @@ def kb_document_create(request):
                 uploaded_file=uploaded_file,
                 chunk_size=validated.get("chunk_size", 500),
                 chunk_overlap=validated.get("chunk_overlap", 80),
+                split_mode=split_mode,
             )
             payload = HealthKnowledgeDocumentSerializer(document).data
             payload["split_mode"] = split_mode

@@ -22,7 +22,7 @@ class HealthKnowledgeDocumentCreateSerializer(serializers.Serializer):
     content = serializers.CharField(required=False, allow_blank=True, default="")
     metadata = serializers.JSONField(required=False, default=dict)
     split_mode = serializers.ChoiceField(
-        choices=["fixed", "markdown_entry"], required=False, default="fixed"
+        choices=["fixed", "adaptive", "markdown_entry"], required=False, default="fixed"
     )
     chunk_size = serializers.IntegerField(
         required=False, default=500, min_value=100, max_value=2000

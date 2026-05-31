@@ -61,6 +61,12 @@ HEALTH_QUERY_EXPANSIONS: Dict[str, Sequence[str]] = {
     "老年血压": ("老人血压", "慢病管理", "血压监测", "低盐饮食"),
     "血压": ("高血压", "血压监测", "低盐饮食", "慢病管理"),
     "高血压": ("血压偏高", "血压监测", "低盐饮食", "慢病管理"),
+    "头疼": ("头痛", "偏头痛", "头晕", "紧张性头痛", "神经内科"),
+    "头痛": ("头疼", "偏头痛", "头晕", "紧张性头痛", "神经内科"),
+    "腿疼": ("腿痛", "膝盖痛", "腰腿痛", "坐骨神经痛", "骨科"),
+    "腿痛": ("腿疼", "膝盖痛", "腰腿痛", "坐骨神经痛", "骨科"),
+    "胃疼": ("胃痛", "反酸", "烧心", "消化不良", "消化内科"),
+    "心率": ("心跳快", "心悸", "心慌", "心律", "心血管"),
     "膝盖": ("膝关节", "运动损伤", "拉伸", "休息", "骨骼关节"),
     "酸痛": ("运动后酸痛", "拉伸", "休息", "运动损伤"),
     "久坐": ("久坐少动", "活动不足", "运动", "拉伸", "体重管理", "代谢"),
@@ -212,7 +218,8 @@ def retrieve_hybrid(
 ) -> dict:
     retrieval_query = build_retrieval_query(question=question, conversation_history=conversation_history)
     vector_k = int(vector_k or getattr(settings, "RAG_VECTOR_TOP_K", 30))
-    sparse_k = int(sparse_k or getattr(settings, "RAG_VECTOR_TOP_K", 30))
+    sparse_k = int(sparse_k or getattr(settings, "RAG_SPARSE_TOP_K", vector_k))
+    fused_k = int(max(fused_k, getattr(settings, "RAG_FUSED_TOP_K", 50)))
 
     embedder = EmbeddingService()
     query_vector = embedder.embed_query(retrieval_query)
@@ -264,7 +271,7 @@ def retrieve_hybrid(
     rrf_ranked = _enrich_ranked_items(rrf_ranked, chunk_map)
 
     rerank_enabled = bool(getattr(settings, "RERANK_ENABLED", True))
-    rerank_top_n = int(getattr(settings, "RERANK_TOP_N", 5))
+    rerank_top_n = int(getattr(settings, "RERANK_TOP_N", 20))
     rerank_ranked = []
     rerank_error = ""
     final_ranked = list(rrf_ranked)
@@ -362,7 +369,7 @@ def ask_with_rag(
     retrieval = retrieve_hybrid(
         question=question,
         conversation_history=conversation_history,
-        fused_k=20,
+        fused_k=int(getattr(settings, "RAG_FUSED_TOP_K", 50)),
     )
     contexts = retrieval.get("contexts") or []
     sources = retrieval.get("sources") or []

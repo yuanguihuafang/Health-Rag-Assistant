@@ -42,12 +42,12 @@
           </a-form-item>
 
           <a-form-item
-            label="邮箱"
+            label="邮箱（可选）"
             name="email"
           >
             <a-input
               v-model:value="form.email"
-              placeholder="请输入邮箱"
+              placeholder="可跳过，后续可在个人资料补充"
               size="large"
             >
               <template #prefix>
@@ -167,7 +167,6 @@ const rules = {
     { min: 3, max: 20, message: '用户名长度在 3 到 20 个字符', trigger: 'blur' }
   ],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
     { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
   ],
   real_name: [

@@ -34,6 +34,7 @@ def rebuild_document_index(
     document: HealthKnowledgeDocument,
     chunk_size: int = 500,
     chunk_overlap: int = 80,
+    split_mode: str = "fixed",
     embedder: Optional[EmbeddingService] = None,
     progress_callback: Optional[Callable[[int], None]] = None,
 ) -> int:
@@ -46,7 +47,10 @@ def rebuild_document_index(
     HealthKnowledgeChunk.objects.filter(document=document).delete()
 
     chunks = split_text(
-        document.content, chunk_size=chunk_size, chunk_overlap=chunk_overlap
+        document.content,
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        split_mode=split_mode,
     )
     if not chunks:
         return 0
@@ -208,6 +212,7 @@ def rebuild_index_for_documents(
     documents: Iterable[HealthKnowledgeDocument],
     chunk_size: int = 500,
     chunk_overlap: int = 80,
+    split_mode: str = "fixed",
     progress_callback: Optional[Callable[[int, int, int], None]] = None,
 ) -> int:
     total = 0
@@ -222,6 +227,7 @@ def rebuild_index_for_documents(
             document=document,
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
+            split_mode=split_mode,
             embedder=embedder,
         )
         total += created
@@ -249,6 +255,11 @@ def create_document_and_index(
     if uploaded_file and not text_content:
         text_content = _extract_text_from_file(uploaded_file).strip()
 
+    base_metadata = metadata or {}
+    document_metadata = {
+        **base_metadata,
+        "split_mode": split_mode,
+    }
     document = HealthKnowledgeDocument.objects.create(
         user_id=user_id,
         title=title.strip(),
@@ -256,12 +267,13 @@ def create_document_and_index(
         source_path=(source_path or "").strip(),
         content=text_content,
         status="active",
-        metadata=metadata or {},
+        metadata=document_metadata,
     )
     created_chunks = rebuild_document_index(
         document=document,
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
+        split_mode=split_mode,
     )
     upsert_chunks_to_vector_store(
         document.chunks.select_related("document").order_by("chunk_index")
@@ -359,6 +371,7 @@ def update_document_and_index(
     reindex: bool = False,
     chunk_size: int = 500,
     chunk_overlap: int = 80,
+    split_mode: str = "fixed",
 ) -> Tuple[HealthKnowledgeDocument, int]:
     if title is not None:
         document.title = title.strip()
@@ -373,10 +386,14 @@ def update_document_and_index(
 
     created_chunks = 0
     if reindex:
+        current_split_mode = "fixed"
+        if isinstance(document.metadata, dict):
+            current_split_mode = str(document.metadata.get("split_mode") or "fixed")
         created_chunks = rebuild_document_index(
             document=document,
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
+            split_mode=split_mode or current_split_mode,
         )
         upsert_chunks_to_vector_store(
             document.chunks.select_related("document").order_by("chunk_index")

@@ -10,6 +10,7 @@
 ## 文件
 
 - `health_eval_questions_v1.jsonl`：V1 固定评测问题（每行一个 JSON）。
+- `health_eval_questions_hardcase_v2_focus50.jsonl`：面向高发主诉的 V2 评测集（50 条，排除妇产/泌尿）。
 
 ## 字段说明
 
@@ -23,6 +24,7 @@
 1. 不要把本目录文件导入知识库。
 2. 先固定使用 `v1` 跑基线，再在后续版本中新增 `v2`。
 3. 每次评测保留结果文件（命中率、关键词覆盖、平均耗时）。
+4. 建议分层评测：日常回归用 50 条；里程碑版本用 100~200 条。
 
 ## 生成命令
 
@@ -42,4 +44,11 @@ python manage.py build_health_hardcase_eval_set --limit 50 --seed 2026 --output 
 
 ```bash
 python manage.py build_health_hardcase_eval_set --source csv --limit 50 --seed 2026 --output health_eval_questions_hardcase_csv_v1.jsonl --multi-turn-ratio 0.2
+```
+
+4. 从高发主诉筛选集生成 V2（排除妇产/泌尿）
+
+```bash
+python scripts/filter_cmedqa_highfreq.py --max-per-intent 500
+python scripts/build_eval_v2_from_filtered_csv.py --limit 50 --output health_rag_assistant/datasets/eval/health_eval_questions_hardcase_v2_focus50.jsonl
 ```

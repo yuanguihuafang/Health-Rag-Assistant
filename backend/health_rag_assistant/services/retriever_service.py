@@ -7,11 +7,14 @@
 3. 不包含 LangChain/FAISS 依赖，避免误导主链路架构。
 """
 import hashlib
+import math
 import re
+from collections import Counter
 from difflib import SequenceMatcher
 from typing import Dict, Iterable, List, Sequence, Set, Tuple
 
 import numpy as np
+from django.conf import settings
 
 try:
     from sklearn.feature_extraction.text import TfidfVectorizer
@@ -171,6 +174,39 @@ def _topic_boost(active_keywords: Set[str], text: str) -> float:
     return min(hits / max(len(active_keywords), 1), 1.0) * 0.18
 
 
+def _tokenize_for_sparse(text: str) -> List[str]:
+    raw = str(text or "").lower()
+    tokens: List[str] = []
+    ascii_buf: List[str] = []
+    cjk_chars: List[str] = []
+
+    def flush_ascii() -> None:
+        if ascii_buf:
+            tokens.append("".join(ascii_buf))
+            ascii_buf.clear()
+
+    for char in raw:
+        if "\u4e00" <= char <= "\u9fff":
+            flush_ascii()
+            cjk_chars.append(char)
+            tokens.append(char)
+            continue
+        if char.isascii() and char.isalnum():
+            ascii_buf.append(char)
+        else:
+            flush_ascii()
+    flush_ascii()
+
+    compact_cjk = "".join(cjk_chars)
+    for n in (2, 3):
+        if len(compact_cjk) >= n:
+            tokens.extend(
+                compact_cjk[idx : idx + n]
+                for idx in range(0, len(compact_cjk) - n + 1)
+            )
+    return [tok for tok in tokens if tok]
+
+
 def _tfidf_score(query: str, texts: List[str]) -> List[float]:
     if not SKLEARN_AVAILABLE or not texts:
         return [0.0 for _ in texts]
@@ -181,6 +217,48 @@ def _tfidf_score(query: str, texts: List[str]) -> List[float]:
     d_vec = tfidf[1:]
     sims = cosine_similarity(q_vec, d_vec)[0]
     return [float(max(min(x, 1.0), 0.0)) for x in sims]
+
+
+def _bm25_score(
+    query: str,
+    texts: List[str],
+    *,
+    k1: float = 1.5,
+    b: float = 0.75,
+) -> List[float]:
+    if not texts:
+        return []
+    docs_tokens = [_tokenize_for_sparse(text) for text in texts]
+    query_tokens = _tokenize_for_sparse(query)
+    if not query_tokens:
+        return [0.0 for _ in texts]
+
+    avgdl = sum(len(tokens) for tokens in docs_tokens) / max(len(docs_tokens), 1)
+    avgdl = max(avgdl, 1.0)
+    df = Counter()
+    for tokens in docs_tokens:
+        df.update(set(tokens))
+    total_docs = len(docs_tokens)
+
+    raw_scores: List[float] = []
+    for tokens in docs_tokens:
+        dl = len(tokens)
+        tf = Counter(tokens)
+        score = 0.0
+        for token in query_tokens:
+            freq = tf.get(token, 0)
+            if freq <= 0:
+                continue
+            n_q = df.get(token, 0)
+            idf = math.log(1 + (total_docs - n_q + 0.5) / (n_q + 0.5))
+            denom = freq + k1 * (1 - b + b * (dl / avgdl))
+            score += idf * ((freq * (k1 + 1)) / max(denom, 1e-9))
+        raw_scores.append(float(score))
+
+    max_score = max(raw_scores) if raw_scores else 0.0
+    if max_score <= 0:
+        return [0.0 for _ in raw_scores]
+    return [float(max(min(s / max_score, 1.0), 0.0)) for s in raw_scores]
 
 
 def retrieve_top_k(question: str, chunks=None, k: int = 5, user_id: int = None):
@@ -200,7 +278,11 @@ def retrieve_top_k(question: str, chunks=None, k: int = 5, user_id: int = None):
         return []
 
     texts = [_normalize_text(chunk.chunk_text or "") for chunk in chunk_list]
-    tfidf_scores = _tfidf_score(expanded, texts)
+    sparse_method = str(getattr(settings, "RAG_SPARSE_METHOD", "bm25")).strip().lower()
+    if sparse_method == "tfidf":
+        sparse_scores = _tfidf_score(expanded, texts)
+    else:
+        sparse_scores = _bm25_score(expanded, texts)
 
     embedder = SimpleEmbedder()
     q_vec = embedder.encode(expanded)
@@ -214,11 +296,11 @@ def retrieve_top_k(question: str, chunks=None, k: int = 5, user_id: int = None):
         keyword_score = _keyword_coverage_score(expanded, text)
         seq_score = SequenceMatcher(None, expanded[:200], text[:300]).ratio()
         topic_score = _topic_boost(active_keywords, text)
-        tfidf_score = tfidf_scores[idx] if idx < len(tfidf_scores) else 0.0
+        sparse_score = sparse_scores[idx] if idx < len(sparse_scores) else 0.0
 
         score = (
             0.38 * hash_score
-            + 0.32 * tfidf_score
+            + 0.32 * sparse_score
             + 0.18 * keyword_score
             + 0.07 * seq_score
             + topic_score
